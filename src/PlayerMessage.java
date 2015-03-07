@@ -1,8 +1,8 @@
 public class PlayerMessage{
 	static void welcomePlayer(){
-		if (Player.isFirstGame)
-			System.out.println("Welcome " + Player.name);
+		if (Player.getFirstGame())
+			System.out.println("Welcome " + Player.getName());
 		else
-			System.out.println("Welcome Back " + Player.name);
+			System.out.println("Welcome Back " + Player.getName());
 	}
 }
