@@ -15,7 +15,7 @@ public class GameFlow {
 
 	// This is the encounter
 	void encounter(){
-		displayCurrentStatus();
+		//displayCurrentStatus();
 		displayChoices();
 		//int playerChose = offerChoice(); // Can't be used here, must be used inside Enounter.
 	}
@@ -64,12 +64,9 @@ public class GameFlow {
 	// Displays the choices player can make.
 	void displayChoices(){
 		for (int i = 0; i < optionText.length; i++){
-			
+			if (!optionText[i].isEmpty()){
+				System.out.println("["+i+"] - " + optionText[i]);
+			}
 		}
-	}
-	
-	// Displays player's current status
-	void displayCurrentStatus(){
-
 	}
 }

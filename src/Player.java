@@ -5,6 +5,8 @@ public class Player {
 	
 	private static int exp; // Current Amount Of Experience Gathered
 	private static int gold; // Current Gold Amount
+	private static int nextLevelAt;
+	private static int level;
 	
 	private static int health; // Current health amount
 	private static int maxHealth; // Maximum amount of health
@@ -106,6 +108,8 @@ public class Player {
 	
 	void createMage(){
 		role = 0;
+		level = 0;
+		nextLevelAt = 10;
 		
 		health = 20;
 		maxHealth = 20;
@@ -123,6 +127,8 @@ public class Player {
 	}
 	void createRogue(){
 		role = 1;
+		level = 0;
+		nextLevelAt = 10;
 		
 		health = 25;
 		maxHealth = 25;
@@ -140,6 +146,8 @@ public class Player {
 	}
 	void createWarrior(){
 		role = 2;
+		level = 0;
+		nextLevelAt = 10;
 		
 		health = 30;
 		maxHealth = 30;
@@ -184,6 +192,58 @@ public class Player {
 		default: // Other
 			System.out.println("ERROR: Calculating Dmg - Invalid Role");
 		}
+	}
+	
+	void displayInfo(){
+		System.out.println("PLAYER INFO:");
+		System.out.println("Level: \t" + level + " " + (role == 0 ? "Mage" : (role == 1 ? "Rogue" : (role == 2 ? "Warrior" : "Unknown"))));
+		System.out.println("Exp: \t" + exp + " / " + nextLevelAt);
+		System.out.println("Health: \t" + health + " / " + maxHealth);
+		System.out.println("Damage: \t" + minDmg + " - " + maxDmg);
+		System.out.println("Intelligence: \t" + intelligence);
+		System.out.println("Dexterity: \t" + dexterity);
+		System.out.println("Strength: \t" + strength);
+		System.out.println("Speed: \t" + speed);
+		System.out.println("Protection: \t" + protection);
+		System.out.println("Accuracy: \t" + accuracy);
+		System.out.println("Dodge: \t" + dodge);
+	}
+	
+	void levelUp(){
+		level++;
+		exp = exp - nextLevelAt;
+		nextLevelAt = (int)Math.round(nextLevelAt * 1.5);
+		System.out.println("Congratulations! You have earned a new level! You are now level: " + level);
+		System.out.println("Your Base Attributes have been updated:");
+		switch(role){
+		case 0: // Mage
+			System.out.println("Intelligence: \t " + intelligence + " -> " + (intelligence + 2));
+			intelligence +=2;
+			System.out.println("Dexterity: \t " + dexterity + " -> " + (dexterity + 1));
+			dexterity +=1;
+			System.out.println("Strength: \t " + strength + " -> " + (strength + 1));
+			strength +=1;
+			break;
+		case 1: // Rogue
+			System.out.println("Intelligence: \t " + intelligence + " -> " + (intelligence + 1));
+			intelligence +=1;
+			System.out.println("Dexterity: \t " + dexterity + " -> " + (dexterity + 2));
+			dexterity +=2;
+			System.out.println("Strength: \t " + strength + " -> " + (strength + 1));
+			strength +=1;
+			break;
+		case 2: // Warrior
+			System.out.println("Intelligence: \t " + intelligence + " -> " + (intelligence + 1));
+			intelligence +=1;
+			System.out.println("Dexterity: \t " + dexterity + " -> " + (dexterity + 1));
+			dexterity +=1;
+			System.out.println("Strength: \t " + strength + " -> " + (strength + 2));
+			strength +=2;
+			break;
+		default: // Other
+			System.out.println("ERROR: Leveling Player - Invalid Role");
+		}
+		calculateDmg();
 	}
 
 	static boolean isDead(){

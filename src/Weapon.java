@@ -8,4 +8,15 @@ class Weapon extends Equipment{
 	public int getMaxDmg() {
 		return maxDmg;
 	}
+	
+	void printDmg(){
+		System.out.println("Damage: " + getMinDmg() + " - " + getMaxDmg());
+	}
+	
+	void displayWeaponStats(){
+		printName();
+		printDmg();
+		printEquipmentStats();
+		printPrice();
+	}
 }
