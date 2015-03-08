@@ -1,3 +1,4 @@
+// This class should manage the files - as in get info from files and save info to files.
 public class DataManager{
 
 	// Checks If The Player Already Exists
