@@ -61,10 +61,14 @@ public class GameFlow {
 		return enteredValue;
 	}
 	
+	// Displays the choices player can make.
 	void displayChoices(){
-
+		for (int i = 0; i < optionText.length; i++){
+			
+		}
 	}
 	
+	// Displays player's current status
 	void displayCurrentStatus(){
 
 	}
