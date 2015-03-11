@@ -1,9 +1,10 @@
 
 public class Armor extends Equipment{
-	// Ei ole kindel, et seda vajagi läheb hetkel.
-	void displayArmorStats(){
-		printName();
-		printEquipmentStats();
-		printPrice();
+	public Armor(String name, int health, int intelligence, int dexterity,
+			int strength, int speed, double protection, double accuracy,
+			double dodge, int price) {
+		super(name, health, intelligence, dexterity, strength, speed, protection,
+				accuracy, dodge, price);
 	}
+	
 }

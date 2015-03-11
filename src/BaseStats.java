@@ -11,6 +11,21 @@ public class BaseStats {
 	double accuracy; // Chance to hit the target (calculated against dodge)
 	double dodge; // Chance to dodge the attack (calculated against accuracy)
 	
+	public BaseStats(String name, int health, int intelligence, int dexterity,
+			int strength, int speed, double protection, double accuracy,
+			double dodge) {
+		super();
+		this.name = name;
+		this.health = health;
+		this.intelligence = intelligence;
+		this.dexterity = dexterity;
+		this.strength = strength;
+		this.speed = speed;
+		this.protection = protection;
+		this.accuracy = accuracy;
+		this.dodge = dodge;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -39,5 +54,15 @@ public class BaseStats {
 		return dodge;
 	}
 	
+	void printStats(){
+		System.out.println("Health: " + getHealth());
+		System.out.println("Intelligence: " + getIntelligence());
+		System.out.println("Dexterity: " + getDexterity());
+		System.out.println("Strength: " + getStrength());
+		System.out.println("Speed: " + getSpeed());
+		System.out.println("Protection: " + getProtection());
+		System.out.println("Accuracy: " + getAccuracy());
+		System.out.println("Dodge: " + getDodge());
+	}
 	
 }
