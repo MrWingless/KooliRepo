@@ -94,8 +94,8 @@ public class Player {
 		return maxDmg;
 	}
 
-	public static int getRole() {
-		return role;
+	public static String getRole() {
+		return (role == 0 ? "Mage" : (role == 1 ? "Rogue" : (role == 2 ? "Warrior" : "Unknown")));
 	}
 
 	public static void setFirstGame(boolean isFirstGame) {
@@ -106,7 +106,7 @@ public class Player {
 		Player.name = name;
 	}
 	
-	void createMage(){
+	private static void createMage(){
 		role = 0;
 		level = 0;
 		nextLevelAt = 10;
@@ -125,7 +125,7 @@ public class Player {
 		accuracy = 0;
 		dodge = 0;
 	}
-	void createRogue(){
+	private static void createRogue(){
 		role = 1;
 		level = 0;
 		nextLevelAt = 10;
@@ -144,7 +144,7 @@ public class Player {
 		accuracy = 0;
 		dodge = 0;
 	}
-	void createWarrior(){
+	private static void createWarrior(){
 		role = 2;
 		level = 0;
 		nextLevelAt = 10;
@@ -165,8 +165,21 @@ public class Player {
 		
 	}
 	
+	public static void chooseClass(int i){
+		switch(i){
+			case 0:
+				createMage(); break;
+			case 1:
+				createRogue(); break;
+			case 2:
+				createWarrior(); break;
+			default:
+				System.out.println("Error: Player.chooseClass - Class choice higher than 2 :(");
+		}
+	}
+	
 	// Calculates Dmg numbers for the player.
-	void calculateDmg(){
+	static void calculateDmg(){
 		int minWeaponDmg;
 		int maxWeaponDmg;
 		if (weapon == null){
@@ -178,15 +191,15 @@ public class Player {
 		}
 		switch(role){
 		case 0: // Mage
-			minDmg = 1 + minWeaponDmg + ((int)Math.round(intelligence * 0.5));
-			maxDmg = 1 + maxWeaponDmg + ((int)Math.round(intelligence * 0.5));
+			minDmg = 1 + minWeaponDmg + ((int)Math.round(intelligence * 0.35));
+			maxDmg = 1 + maxWeaponDmg + ((int)Math.round(intelligence * 0.6));
 			break;
 		case 1: // Rogue
-			minDmg = 1 + minWeaponDmg + ((int)Math.round(dexterity * 0.5));
-			maxDmg = 1 + maxWeaponDmg + ((int)Math.round(dexterity * 0.5));
+			minDmg = 1 + minWeaponDmg + ((int)Math.round(dexterity * 0.30));
+			maxDmg = 1 + maxWeaponDmg + ((int)Math.round(dexterity * 0.55));
 			break;
 		case 2: // Warrior
-			minDmg = 1 + minWeaponDmg + ((int)Math.round(strength * 0.5));
+			minDmg = 1 + minWeaponDmg + ((int)Math.round(strength * 0.25));
 			maxDmg = 1 + maxWeaponDmg + ((int)Math.round(strength * 0.5));
 			break;
 		default: // Other
@@ -194,24 +207,29 @@ public class Player {
 		}
 	}
 	
-	void displayInfo(){
+	static void displayInfo(){
 		System.out.println("PLAYER INFO:");
-		System.out.println("Level: \t" + level + " " + (role == 0 ? "Mage" : (role == 1 ? "Rogue" : (role == 2 ? "Warrior" : "Unknown"))));
-		System.out.println("Exp: \t" + exp + " / " + nextLevelAt);
+		System.out.println("Name: \t\t" + name);
+		System.out.println("Level: \t\t" + level + " " + getRole());
+		System.out.println("Exp: \t\t" + exp + " / " + nextLevelAt);
 		System.out.println("Health: \t" + health + " / " + maxHealth);
 		System.out.println("Damage: \t" + minDmg + " - " + maxDmg);
 		System.out.println("Intelligence: \t" + intelligence);
 		System.out.println("Dexterity: \t" + dexterity);
 		System.out.println("Strength: \t" + strength);
-		System.out.println("Speed: \t" + speed);
-		System.out.println("Protection: \t" + protection);
-		System.out.println("Accuracy: \t" + accuracy);
-		System.out.println("Dodge: \t" + dodge);
+		System.out.println("Speed: \t\t" + speed);
+		if (protection != 0.0)
+			System.out.println("Protection: \t" + protection);
+		if (accuracy != 0.0)
+			System.out.println("Accuracy: \t" + accuracy);
+		if (dodge != 0.0)
+			System.out.println("Dodge: \t\t" + dodge);
 	}
 	
-	void levelUp(){
+	static void levelUp(){
 		level++;
 		exp = exp - nextLevelAt;
+		health = maxHealth;
 		nextLevelAt = (int)Math.round(nextLevelAt * 1.5);
 		System.out.println("Congratulations! You have earned a new level! You are now level: " + level);
 		System.out.println("Your Base Attributes have been updated:");

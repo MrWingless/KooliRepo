@@ -7,14 +7,14 @@ public class GameMain {
 		System.out.println("First Things First, We must find out if you've played before.");
 		System.out.println();
 		
-		/*
-		Scanner sisend = new Scanner(System.in);
-		System.out.println("Please Enter your Character name:");
-		Player.setName(sisend.next()); 
-		sisend.close();
-		*/
 		
-		/*
+		//Scanner sisend = new Scanner(System.in);
+		System.out.println("Please Enter your Character name:");
+		Player.setName(GameFlow.sisend.next()); 
+		//sisend.close();
+		
+		
+		
 		// Kontrollb, kas mängija on varem mnänginud.
 		DataManager.checkIfPlayerPlayedBefore();
 		if (Player.getFirstGame()){
@@ -22,12 +22,14 @@ public class GameMain {
 		}
 		else{
 			// Load The Data From the File!
-		}*/
+		}
 		
+		Encounter.chooseClass();
 		
 		//Katsetan Mõõka
+		System.out.println();
 		Equipment sword = new Weapon("Mõõk", 10, 12, 3, -7, 5, -4, 7, 2.1, -2.3, 2.5, 600);
-		sword.printStats();
+		//sword.printStats();
 		
 		/*
 		do{}
