@@ -26,9 +26,15 @@ public class GameMain {
 		
 		Encounter.chooseClass();
 		
-		//Katsetan Mõõka
+		//Katsetan Revli
 		System.out.println();
 		Equipment sword = new Weapon("Mõõk", 10, 12, 3, -7, 5, -4, 7, 2.1, -2.3, 2.5, 600);
+		Weapon[] relvad = DataManager.getWeapons();
+		
+		for (Weapon relv : relvad){
+			System.out.println();
+			relv.printStats();
+		}
 		//sword.printStats();
 		
 		/*
