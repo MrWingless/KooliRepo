@@ -247,6 +247,7 @@ public class Player {
 	
 	public static void damageExp(int i){
 		Player.exp = Player.exp - i;
+		System.out.println("Player: You lose " + i + " point of experience");
 	}
 	
 	// Choosing a Class
@@ -402,10 +403,12 @@ public class Player {
 	}
 	
 	static void heal(int healAmount){
+		System.out.println("Player: You're being healed by " + healAmount + " point of health.");
 		if (health + healAmount > maxHealth)
 			health = maxHealth;
 		else
 			health = health + healAmount;
+		System.out.println("Player: Your current health is now: " + health + " / " + maxHealth);
 	}
 	
 	static void heal(double amount){

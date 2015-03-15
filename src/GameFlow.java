@@ -43,7 +43,7 @@ public class GameFlow {
 					if (enteredCharValue > 10 || enteredCharValue < 0){
 						System.out.println("Your choice " + choiceAsCharArray[0] + " was not one of the numers. Please Try again.");
 					} else {
-						if (optionText[enteredCharValue].isEmpty()){ // This checks if That option is available.
+						if (optionText[enteredCharValue].isEmpty() || optionText[enteredCharValue].equals("")){ // This checks if That option is available.
 							System.out.println("That wasn't one of the avaliable choices. Please Try again.");
 						} else {
 							enteredValue = enteredCharValue;
