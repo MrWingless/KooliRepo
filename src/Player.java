@@ -4,7 +4,8 @@ import java.io.IOException;
 
 public class Player {
 	private static String name;
-	private static boolean isFirstGame;	
+	private static boolean isFirstGame;
+	private static boolean hasBeenCreated = false;
 	
 	private static int exp; // Current Amount Of Experience Gathered
 	private static int gold; // Current Gold Amount
@@ -104,6 +105,10 @@ public class Player {
 	private static int getRoleAsInt(){
 		return role;
 	}
+	
+	public static boolean isCreated(){
+		return Player.hasBeenCreated;
+	}
 
 	public static void setFirstGame(boolean isFirstGame) {
 		Player.isFirstGame = isFirstGame;
@@ -176,6 +181,10 @@ public class Player {
 	private static void setWeapon(int weaponCode) {
 		Player.weapon = GameMain.weapons[weaponCode];
 	}
+	
+	private static void setCreated(){
+		Player.hasBeenCreated = true;
+	}
 
 	private static void createMage(){
 		role = 0;
@@ -236,6 +245,10 @@ public class Player {
 		
 	}
 	
+	public static void damageExp(int i){
+		Player.exp = Player.exp - i;
+	}
+	
 	// Choosing a Class
 	public static void chooseClass(int i){
 		switch(i){
@@ -250,6 +263,7 @@ public class Player {
 		}
 		setWeapon(0);
 		setArmor(0);
+		setCreated();
 	}
 	
 	// Calculates Dmg numbers for the player.
@@ -328,7 +342,16 @@ public class Player {
 	
 	// Saves player Data to Player's File
 	static void save() throws IOException{
-		DataManager.savePlayerData();
+
+		if (Player.isCreated()){
+			if (Encounter.isInCombat){
+				damageExp(1);
+			}
+			DataManager.savePlayerData();
+		}
+		else{
+			DataManager.deletePlayerFile();
+		}
 	}
 	
 	static void loadPlayerData() throws FileNotFoundException{
@@ -369,6 +392,19 @@ public class Player {
 			setArmor(Integer.parseInt(playerData[15]));
 		//[16] Gold
 		setGold(Integer.parseInt(playerData[16]));
+		setCreated();
+	}
+	
+	static void rest(){
+		int healAmount = (int)Math.round(maxHealth * 0.4);
+		heal(healAmount);
+	}
+	
+	static void heal(int healAmount){
+		if (health + healAmount > maxHealth)
+			health = maxHealth;
+		else
+			health = health + healAmount;
 	}
 	
 	static void levelUp(){

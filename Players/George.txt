@@ -1,0 +1,34 @@
+# Name
+George
+# Level
+0
+# Role/Class
+2
+# Exp
+0
+# Exp Required for Next Level Up
+10
+# Current Health
+30
+# Max Health
+30
+# Intelligence
+5
+# Dexterity
+5
+# Strength
+10
+# Speed
+5
+# Protection
+0.0
+# Accuracy
+0.0
+# Dodge
+0.0
+# Weapon's Code
+0
+# Armor's Code
+0
+# Gold
+0

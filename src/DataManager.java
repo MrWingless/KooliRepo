@@ -37,7 +37,8 @@ public class DataManager{
 		sc.close();
 		return content.toString().split("!");
 	}
-	
+
+	// Reads WeaponData from the Weapons file
 	static Weapon[] getWeapons() throws FileNotFoundException{
 		String[] weaponData = readFile("Data/Weapons.txt");
 		Weapon[] weapons = new Weapon[weaponData.length];
@@ -61,7 +62,8 @@ public class DataManager{
 		
 		return weapons;
 	}
-	
+
+	// Reads ArmorData from the Armors file
 	static Armor[] getArmors() throws FileNotFoundException{
 		String[] armorData = readFile("Data/Armors.txt");
 		Armor[] armors = new Armor[armorData.length];
@@ -84,6 +86,34 @@ public class DataManager{
 		return armors;
 	}
 	
+	// Reads EnemyData from the Enemies file
+	static Enemy[] getEnemies() throws FileNotFoundException {
+		String[] enemyData = readFile("Data/Enemies.txt");
+		Enemy[] enemies = new Enemy[enemyData.length];
+		
+		for (int i = 0; i<enemyData.length; i++){
+			String[] thisEnemyData = enemyData[i].split("/");
+			enemies[i] = new Enemy(
+					thisEnemyData[0],
+					Integer.parseInt(thisEnemyData[1]),
+					Integer.parseInt(thisEnemyData[2]),
+					Integer.parseInt(thisEnemyData[3]),
+					Integer.parseInt(thisEnemyData[4]),
+					Integer.parseInt(thisEnemyData[5]),
+					Integer.parseInt(thisEnemyData[6]),
+					Integer.parseInt(thisEnemyData[7]),
+					Integer.parseInt(thisEnemyData[8]),
+					Double.parseDouble(thisEnemyData[9]),
+					Double.parseDouble(thisEnemyData[10]),
+					Double.parseDouble(thisEnemyData[11]),
+					Integer.parseInt(thisEnemyData[12]),
+					Integer.parseInt(thisEnemyData[13]));
+		}
+		
+		return enemies;
+	}
+	
+	// Save Player Data into a File
 	static void savePlayerData() throws IOException{
 		String[] player = Player.getInfoAsStringArray();
 		java.io.File playerData = new java.io.File("Players/" + player[0] +".txt");
@@ -92,7 +122,7 @@ public class DataManager{
 		}
 		java.io.PrintWriter writer = new java.io.PrintWriter(playerData);
 		//[0] Name, 
-		writer.println("# [0] Name");
+		writer.println("# Name");
 		writer.println(player[0]);
 		//[1] Level, 
 		writer.println("# Level");
@@ -145,13 +175,14 @@ public class DataManager{
 		writer.close();
 	}
 
+	// Read played data from the file and returns the data as an Array os Strings
 	static String[] readPlayerData() throws FileNotFoundException{
 		java.io.File player = new java.io.File("Players/" + Player.getName() +".txt");
 		java.util.Scanner fileScanner = new java.util.Scanner(player);  
 		String[] tempPlayerData = new String[17];
 		int counter = 0;
 		while (fileScanner.hasNextLine()) {
-			String s = fileScanner.nextLine(); // Kuhu need pannakse, kui neid enam ei kasutata?
+			String s = fileScanner.nextLine();
 			if (!s.startsWith("#")){
 				tempPlayerData[counter] = s;
 				counter++;
@@ -159,5 +190,10 @@ public class DataManager{
 		}
 		fileScanner.close();
 		return tempPlayerData;
+	}
+	
+	static void deletePlayerFile(){
+		java.io.File player = new java.io.File("Players/" + Player.getName() +".txt");
+		player.delete();
 	}
 }

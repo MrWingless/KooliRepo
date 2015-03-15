@@ -10,4 +10,9 @@ public class Encounter {
 		Player.chooseClass(GameFlow.makeChoice("- Please Choose Your Class: -", choices)-1);
 		Player.displayInfo();
 	}
+	
+	public static void combat(){
+		
+	}
+	
 }

@@ -1,14 +1,16 @@
 import java.util.Scanner;
 
 public class GameMain {
-	public static Weapon[] weapons;;
+	public static Weapon[] weapons;
 	public static Armor[] armors;
+	public static Enemy[] enemies;
 	public static void main(String[] args) throws Exception{
 		System.out.println("You have started The Game Thing.");
 		
 		// Loading Data:
 		weapons = DataManager.getWeapons();
 		armors = DataManager.getArmors();
+		enemies = DataManager.getEnemies();
 		
 		/*
 		for (Weapon weapon : weapons){
@@ -26,9 +28,8 @@ public class GameMain {
 		System.out.println();
 		
 		
-		System.out.println("Please Enter your Character name:");
+		System.out.println("Please Enter Your Character Name:");
 		Player.setName(GameFlow.sisend.next()); 
-		
 		
 		
 		// Kontrollb, kas mängija on varem mänginud.
@@ -44,6 +45,7 @@ public class GameMain {
 			Player.displayInfo();
 		}
 		
+		GameFlow.startMainGameFlow();
 		
 		
 		//Katsetan Varustust

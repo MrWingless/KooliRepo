@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -19,11 +20,6 @@ public class GameFlow {
 				setOption(i+1, "");
 		}
 		optionText[9] = "Exit Game";
-	}
-
-	// This will randomly choose one of the encounters
-	void getRandomEncounter(){
-		
 	}
 
 	// This offers the player a choice and checks that player's answer falls within requested parameters
@@ -109,8 +105,41 @@ public class GameFlow {
 		while (!isChoiceMade);
 		return choiceMade;
 	}
+	
+	public static void startMainGameFlow(){
+		String[] choices = {
+				"Rest: Heal 40% Health and Lose 1 exp", 
+				"Continue on with your travels"};
+		int choice = 0;
+		do{
+			choice = GameFlow.makeChoice("What would you like to do?", choices);
+			if (choice == 1)
+				Player.rest();
+			if (choice == 2)
+				getRandomEncounter();
+		} while(!Player.isDead());
+		
+		System.out.println(" Whoops. It seems like you had an accident.");
+		if (Player.isDead()){
+			DataManager.deletePlayerFile();
+			System.out.println("Your Saves have been deleted");
+		}
+		System.out.println("Oh well, you can start again by Starting the game again.");
+		System.out.println("Thank You for playing");
+	}
+	
+	// This will randomly choose one of the encounters
+	static void getRandomEncounter(){
+		
+	}
 
 	public static void exitGame(){
-		
+		try {
+			Player.save();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			System.exit(0);
+		}
 	}
 }
