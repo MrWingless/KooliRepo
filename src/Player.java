@@ -250,6 +250,13 @@ public class Player {
 		System.out.println("Player: You lose " + i + " point of experience");
 	}
 	
+	public static void loseGold(int i){
+		Player.gold = Player.gold - i;
+		if (Player.gold < 0)
+			setGold(0);
+		System.out.println("Player: You have lost " + i + " gold. You now have: " + getGold() + "g");
+	}
+	
 	// Choosing a Class
 	public static void chooseClass(int i){
 		switch(i){
