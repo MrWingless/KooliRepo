@@ -13,6 +13,12 @@ public class Encounter {
 	
 	public static void combat(){
 		Combat.enemyMalee();
+		try {
+			GameMain.refreshEnemies();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public static void traveller(){

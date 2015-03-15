@@ -26,7 +26,7 @@ public class Actor extends BaseStats{
 	public void damageHealth(int i){
 		super.health = super.health - i;
 		if(isDead()){
-			System.out.println("Congratulation! You killed " + super.getName());
+			System.out.println("\nCongratulations! You killed " + super.getName());
 		} else {
 			System.out.println(super.getName() + " is hit by your attack and has " + super.getHealth() + "/" + maxHealth + " health left.");
 		}

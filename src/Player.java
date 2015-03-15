@@ -198,12 +198,12 @@ public class Player {
 		dexterity = 5;
 		intelligence = 10;
 
-		calculateDmg();
+		//calculateDmg();
 
 		speed = 5;
-		protection = 0;
-		accuracy = 0;
-		dodge = 0;
+		//protection = armor.getProtection() + (int)(strength*0.1);
+		//accuracy = armor.getAccuracy() + (int)(dexterity*0.1);
+		//dodge = armor.getDodge() + (int)(dexterity*0.1);
 	}
 	private static void createRogue(){
 		role = 1;
@@ -217,12 +217,12 @@ public class Player {
 		dexterity = 10;
 		intelligence = 5;
 
-		calculateDmg();
+		//calculateDmg();
 
 		speed = 5;
-		protection = 0;
-		accuracy = 0;
-		dodge = 0;
+		//protection = armor.getProtection() + (int)(strength*0.1);
+		//accuracy = armor.getAccuracy() + (int)(dexterity*0.1);
+		//dodge = armor.getDodge() + (int)(dexterity*0.1);
 	}
 	private static void createWarrior(){
 		role = 2;
@@ -236,12 +236,12 @@ public class Player {
 		dexterity = 5;
 		intelligence = 5;
 		
-		calculateDmg();
+		//calculateDmg();
 
 		speed = 5;
-		protection = 0;
-		accuracy = 0;
-		dodge = 0;
+		//protection = armor.getProtection() + (int)(strength*0.1);
+		//accuracy = armor.getAccuracy() + (int)(dexterity*0.1);
+		//dodge = armor.getDodge() + (int)(dexterity*0.1);
 		
 	}
 	
@@ -271,6 +271,7 @@ public class Player {
 		}
 		setWeapon(0);
 		setArmor(0);
+		calculateDmg();
 		setCreated();
 	}
 	
@@ -301,6 +302,9 @@ public class Player {
 		default: // Other
 			System.out.println("ERROR: Calculating Dmg - Invalid Role");
 		}
+		protection = armor.getProtection() + (int)(strength*0.1);
+		accuracy = armor.getAccuracy() + dexterity*0.1 + speed*0.25;
+		dodge = armor.getDodge() + (int)((dexterity + intelligence)*0.05) + speed*0.25;
 	}
 	
 	// Displays Player Info to Console.
@@ -471,6 +475,9 @@ public class Player {
 	public static double chanceToFlee(Enemy e){
 		return 100.00;
 	}
+	public static double changeToHit(Enemy e){
+		return ((accuracy - e.dodge)/accuracy)*100;
+	}
 	
 	public static boolean isFleeing(Enemy e){
 		return false;
@@ -485,7 +492,63 @@ public class Player {
 		}
 	}
 	
-	static void killedEnemy(Enemy e){
+	public static void killedEnemy(Enemy e){
+		exp += e.valueInExp;
+		gold += e.valueInGold;
+		if (exp >= nextLevelAt) {
+			levelUp();
+		}
+	}
+	
+	// Will calculate, does player hit enemy or not. Returns amount of damage done, when hit occurs, otherwise returns 0
+	public static int willPlayerHit(Enemy e){
+		calculateDmg();
+		//int minDam = minDmg;
+		//int maxDam = maxDmg;
+		
+		double hitChance = changeToHit(e);
+		if (hitChance < 0) {
+			return 0;
+		} else if (Math.random()*100 > hitChance) {
+			return 0;
+		} else {
+			return maxDmg;
+		}
+	}
+	
+	public static int willEnemyHit(Enemy e){
+		double hitChance = ((e.accuracy - dodge)/e.accuracy)*100;
+		
+		if (hitChance < 0) {
+			return 0;
+		} else if (Math.random()*100 > hitChance) {
+			return 0;
+		} else {
+			return e.maxDmg;
+		}
 		
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

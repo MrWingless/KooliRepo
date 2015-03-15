@@ -57,4 +57,8 @@ public class GameMain {
 		do{}
 		while(!Player.isDead());*/
 	}
+	
+	public static void refreshEnemies() throws Exception{
+		enemies = DataManager.getEnemies();
+	}
 }
