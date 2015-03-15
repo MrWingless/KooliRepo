@@ -12,7 +12,7 @@ public class Encounter {
 	}
 	
 	public static void combat(){
-		
+		Combat.enemyMalee();
 	}
 
 	public static void traveller(){

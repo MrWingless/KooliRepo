@@ -22,4 +22,13 @@ public class Actor extends BaseStats{
 		else
 			return false;
 	}
+	
+	public void damageHealth(int i){
+		super.health = super.health - i;
+		if(isDead()){
+			System.out.println("Congratulation! You killed " + super.getName());
+		} else {
+			System.out.println(super.getName() + " is hit by your attack and has " + super.getHealth() + "/" + maxHealth + " health left.");
+		}
+	}
 }

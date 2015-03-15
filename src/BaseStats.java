@@ -64,5 +64,4 @@ public class BaseStats {
 		System.out.println("Accuracy: " + getAccuracy());
 		System.out.println("Dodge: " + getDodge());
 	}
-	
 }

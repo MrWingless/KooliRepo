@@ -467,4 +467,25 @@ public class Player {
 		else
 			return false;
 	}
+	
+	public static double chanceToFlee(Enemy e){
+		return 100.00;
+	}
+	
+	public static boolean isFleeing(Enemy e){
+		return false;
+	}
+	
+	static void damageHealth(int i){
+		setHealth(getHealth() - i);
+		if (getHealth() <= 0) {
+			System.out.println("Deem. You deaded.");
+		} else {
+			System.out.println("You are hit! You have " + health + "/" + maxHealth + " healt left.\nBe careful!");
+		}
+	}
+	
+	static void killedEnemy(Enemy e){
+		
+	}
 }

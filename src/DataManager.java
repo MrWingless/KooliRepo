@@ -101,11 +101,11 @@ public class DataManager{
 					Integer.parseInt(thisEnemyData[4]),
 					Integer.parseInt(thisEnemyData[5]),
 					Integer.parseInt(thisEnemyData[6]),
-					Integer.parseInt(thisEnemyData[7]),
-					Integer.parseInt(thisEnemyData[8]),
+					Double.parseDouble(thisEnemyData[7]),
+					Double.parseDouble(thisEnemyData[8]),
 					Double.parseDouble(thisEnemyData[9]),
-					Double.parseDouble(thisEnemyData[10]),
-					Double.parseDouble(thisEnemyData[11]),
+					Integer.parseInt(thisEnemyData[10]),
+					Integer.parseInt(thisEnemyData[11]),
 					Integer.parseInt(thisEnemyData[12]),
 					Integer.parseInt(thisEnemyData[13]));
 		}
