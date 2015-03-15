@@ -287,6 +287,7 @@ public class Player {
 		System.out.println("Name: \t\t" + name);
 		System.out.println("Level: \t\t" + level + " " + getRole());
 		System.out.println("Exp: \t\t" + exp + " / " + nextLevelAt);
+		System.out.println("Gold: \t\t" + gold);
 		System.out.println("Health: \t" + health + " / " + maxHealth);
 		System.out.println("Damage: \t" + minDmg + " - " + maxDmg);
 		System.out.println("Intelligence: \t" + intelligence);
@@ -319,7 +320,8 @@ public class Player {
 				""+accuracy,
 				""+dodge,
 				""+weapon.getCode(),
-				""+armor.getCode()};
+				""+armor.getCode(),
+				""+gold};
 		
 		return player;
 	}
@@ -365,6 +367,8 @@ public class Player {
 		//[15] armorCode,  
 		if (!playerData[15].isEmpty())
 			setArmor(Integer.parseInt(playerData[15]));
+		//[16] Gold
+		setGold(Integer.parseInt(playerData[16]));
 	}
 	
 	static void levelUp(){

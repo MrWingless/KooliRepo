@@ -30,3 +30,5 @@ Jenny
 0
 # Armor's Code
 0
+# Gold
+0

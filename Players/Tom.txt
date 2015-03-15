@@ -1,5 +1,5 @@
 # [0] Name
-Jeny
+Tom
 # Level
 0
 # Role/Class
@@ -29,4 +29,6 @@ Jeny
 # Weapon's Code
 0
 # Armor's Code
+0
+# Gold
 0

@@ -139,13 +139,16 @@ public class DataManager{
 		//[15] armorCode,
 		writer.println("# Armor's Code");
 		writer.println(player[15]);
+		//[16] Gold,
+		writer.println("# Gold");
+		writer.println(player[16]);
 		writer.close();
 	}
 
 	static String[] readPlayerData() throws FileNotFoundException{
 		java.io.File player = new java.io.File("Players/" + Player.getName() +".txt");
 		java.util.Scanner fileScanner = new java.util.Scanner(player);  
-		String[] tempPlayerData = new String[16];
+		String[] tempPlayerData = new String[17];
 		int counter = 0;
 		while (fileScanner.hasNextLine()) {
 			String s = fileScanner.nextLine(); // Kuhu need pannakse, kui neid enam ei kasutata?
