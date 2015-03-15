@@ -130,7 +130,20 @@ public class GameFlow {
 	
 	// This will randomly choose one of the encounters
 	static void getRandomEncounter(){
+		int randomNumber = (int)Math.round(Math.random()*100); // 0 - 100
 		
+		// 70% chance of an Enemy encounter
+		if (randomNumber < 71){
+			Encounter.combat();
+		} else {
+			// 20% chance of Location encounter
+			if (randomNumber < 91){
+				Encounter.location();
+			}else{
+				// 10% chance of Traveler encounter
+				Encounter.traveller();
+			}
+		}
 	}
 
 	public static void exitGame(){

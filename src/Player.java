@@ -398,6 +398,7 @@ public class Player {
 	static void rest(){
 		int healAmount = (int)Math.round(maxHealth * 0.4);
 		heal(healAmount);
+		damageExp(1);
 	}
 	
 	static void heal(int healAmount){
@@ -405,6 +406,11 @@ public class Player {
 			health = maxHealth;
 		else
 			health = health + healAmount;
+	}
+	
+	static void heal(double amount){
+		int healAmount = (int)Math.round((maxHealth * amount)/100);
+		heal(healAmount);
 	}
 	
 	static void levelUp(){
