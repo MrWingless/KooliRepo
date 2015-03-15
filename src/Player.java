@@ -357,9 +357,11 @@ public class Player {
 		//[13] dodge,  
 		setDodge(Double.parseDouble(playerData[13]));
 		//[14] weaponCode,  
-		setWeapon(Integer.parseInt(playerData[14]));
+		if (!playerData[14].isEmpty())
+			setWeapon(Integer.parseInt(playerData[14]));
 		//[15] armorCode,  
-		setArmor(Integer.parseInt(playerData[15]));
+		if (!playerData[15].isEmpty())
+			setArmor(Integer.parseInt(playerData[15]));
 	}
 	
 	static void levelUp(){
