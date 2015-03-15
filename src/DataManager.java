@@ -141,4 +141,19 @@ public class DataManager{
 		writer.println(player[15]);
 		writer.close();
 	}
+
+	static String[] readPlayerData(){
+		java.util.Scanner fileScanner = new java.util.Scanner("Players/" + Player.getName() +".txt");  
+		String[] tempPlayerData = new String[16];
+		int counter = 0;
+		while (fileScanner.hasNextLine()) {
+			String s = fileScanner.nextLine(); // Kuhu need pannakse, kui neid enam ei kasutata?
+			if (!s.startsWith("#")){
+				tempPlayerData[counter] = s;
+				counter++;
+			}
+		}
+		fileScanner.close();
+		return tempPlayerData;
+	}
 }

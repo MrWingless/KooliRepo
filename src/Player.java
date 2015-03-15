@@ -112,6 +112,70 @@ public class Player {
 		Player.name = name;
 	}
 	
+	private static void setExp(int exp) {
+		Player.exp = exp;
+	}
+
+	private static void setGold(int gold) {
+		Player.gold = gold;
+	}
+
+	private static void setNextLevelAt(int nextLevelAt) {
+		Player.nextLevelAt = nextLevelAt;
+	}
+
+	private static void setLevel(int level) {
+		Player.level = level;
+	}
+
+	private static void setHealth(int health) {
+		Player.health = health;
+	}
+
+	private static void setMaxHealth(int maxHealth) {
+		Player.maxHealth = maxHealth;
+	}
+
+	private static void setSpeed(int speed) {
+		Player.speed = speed;
+	}
+
+	private static void setStrength(int strength) {
+		Player.strength = strength;
+	}
+
+	private static void setDexterity(int dexterity) {
+		Player.dexterity = dexterity;
+	}
+
+	private static void setIntelligence(int intelligence) {
+		Player.intelligence = intelligence;
+	}
+
+	private static void setProtection(double protection) {
+		Player.protection = protection;
+	}
+
+	private static void setAccuracy(double accuracy) {
+		Player.accuracy = accuracy;
+	}
+
+	private static void setDodge(double dodge) {
+		Player.dodge = dodge;
+	}
+
+	private static void setRole(int role) {
+		Player.role = role;
+	}
+
+	private static void setArmor(int armorCode) {
+		Player.armor = GameMain.armors[armorCode];
+	}
+
+	private static void setWeapon(int weaponCode) {
+		Player.weapon = GameMain.weapons[weaponCode];
+	}
+
 	private static void createMage(){
 		role = 0;
 		level = 0;
@@ -260,6 +324,42 @@ public class Player {
 	// Saves player Data to Player's File
 	static void save() throws IOException{
 		DataManager.savePlayerData();
+	}
+	
+	static void loadPlayerData(){
+		String[] playerData = DataManager.readPlayerData();
+		//[0] Name,
+		setName(playerData[0]);
+		//[1] Level,   
+		setLevel(Integer.parseInt(playerData[1]));
+		//[2] role,
+		setRole(Integer.parseInt(playerData[2]));
+		//[3] exp,  
+		setExp(Integer.parseInt(playerData[3]));
+		//[4] nextLevelAt,  
+		setNextLevelAt(Integer.parseInt(playerData[4]));
+		//[5] health,  
+		setHealth(Integer.parseInt(playerData[5]));
+		//[6] maxHealth,  
+		setMaxHealth(Integer.parseInt(playerData[6]));
+		//[7] intelligence,  
+		setIntelligence(Integer.parseInt(playerData[7]));
+		//[8] dexterity,  
+		setDexterity(Integer.parseInt(playerData[8]));
+		//[9] strength,  
+		setStrength(Integer.parseInt(playerData[9]));
+		//[10] speed,  
+		setSpeed(Integer.parseInt(playerData[10]));
+		//[11] protection,  
+		setProtection(Double.parseDouble(playerData[11]));
+		//[12] accuracy,  
+		setAccuracy(Double.parseDouble(playerData[12]));
+		//[13] dodge,  
+		setDodge(Double.parseDouble(playerData[13]));
+		//[14] weaponCode,  
+		setWeapon(Integer.parseInt(playerData[14]));
+		//[15] armorCode,  
+		setArmor(Integer.parseInt(playerData[15]));
 	}
 	
 	static void levelUp(){
