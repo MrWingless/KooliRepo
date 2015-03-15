@@ -13,5 +13,11 @@ public class Armor extends Equipment{
 	public int getCode(){
 		return code;
 	}
+	void printStats(){
+		System.out.println("ARMOR INFO:");
+		printName();
+		super.printStatBonuses();
+		super.printPrice();
+	}
 	
 }

@@ -12,7 +12,7 @@ public class GameFlow {
 	}
 
 	public static void setOptions(String[] displayTexts){
-		optionText[0] = "Display More Info...";
+		optionText[0] = "Display Player Info...";
 		for (int i = 0; i < 9; i++){
 			if (i < displayTexts.length)
 				setOption(i+1, displayTexts[i]);
@@ -99,6 +99,10 @@ public class GameFlow {
 			else{
 				if (choiceMade == 0){
 					Player.displayInfo();
+					System.out.println();
+					Player.getWeapon().printStats();
+					System.out.println();
+					Player.getArmor().printStats();
 				}
 				else{
 					isChoiceMade = true;

@@ -32,6 +32,7 @@ class Weapon extends Equipment{
 	}
 	
 	void printStats(){
+		System.out.println("WEAPON INFO:");
 		printName();
 		printDmg();
 		super.printStatBonuses();
