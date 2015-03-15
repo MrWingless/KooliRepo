@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 
 public class Player {
 	private static String name;
@@ -97,6 +99,10 @@ public class Player {
 	public static String getRole() {
 		return (role == 0 ? "Mage" : (role == 1 ? "Rogue" : (role == 2 ? "Warrior" : "Unknown")));
 	}
+	
+	private static int getRoleAsInt(){
+		return role;
+	}
 
 	public static void setFirstGame(boolean isFirstGame) {
 		Player.isFirstGame = isFirstGame;
@@ -165,6 +171,7 @@ public class Player {
 		
 	}
 	
+	// Choosing a Class
 	public static void chooseClass(int i){
 		switch(i){
 			case 0:
@@ -207,6 +214,7 @@ public class Player {
 		}
 	}
 	
+	// Displays Player Info to Console.
 	static void displayInfo(){
 		System.out.println("PLAYER INFO:");
 		System.out.println("Name: \t\t" + name);
@@ -224,6 +232,34 @@ public class Player {
 			System.out.println("Accuracy: \t" + accuracy);
 		if (dodge != 0.0)
 			System.out.println("Dodge: \t\t" + dodge);
+	}
+	
+	// Gets Player Info and Returns it as String Array (Used for Saving Player Info)
+	static String[] getInfoAsStringArray(){
+		String[] player = {
+				name, 
+				""+level, 
+				""+getRoleAsInt(),
+				""+exp,
+				""+nextLevelAt,
+				""+health,
+				""+maxHealth,
+				""+intelligence,
+				""+dexterity,
+				""+strength,
+				""+speed,
+				""+protection,
+				""+accuracy,
+				""+dodge,
+				""+weapon.getCode(),
+				""+armor.getCode()};
+		
+		return player;
+	}
+	
+	// Saves player Data to Player's File
+	static void save() throws IOException{
+		DataManager.savePlayerData();
 	}
 	
 	static void levelUp(){

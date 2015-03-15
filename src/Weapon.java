@@ -1,6 +1,7 @@
 
 class Weapon extends Equipment{
-
+	private static int counter = 0;
+	private int code;
 	int minDmg; // How much additional Minimum Damage is added to the player
 	int maxDmg; // How much additional Minimum Damage is added to the player
 	
@@ -9,8 +10,14 @@ class Weapon extends Equipment{
 			double dodge, int price) {
 		super(name, health, intelligence, dexterity, strength, speed, protection,
 				accuracy, dodge, price);
+		this.code = counter;
+		counter++;
 		this.minDmg = minDmg;
 		this.maxDmg = maxDmg;
+	}
+	
+	public int getCode(){
+		return code;
 	}
 	
 	public int getMinDmg() {

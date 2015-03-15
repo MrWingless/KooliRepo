@@ -1,0 +1,7 @@
+!-- Do not use '!' <- inside names. PS! Changing order existing Armors will affect saved Playerdata.
+!-- Name BonusHealth Intelligence Dexterity Strength Speed Protection Accuracy Dodge Price
+Rags/0/0/0/0/3/0/0/5/50
+Leather Armor/5/0/3/1/1/2/0/2/350
+Chainmail/10/0/0/5/-1/5/0/-1/450
+Plate Armor/15/0/-5/5/-3/15/-1/-5/600
+Necromancer's Robes/-5/20/5/-10/5/5/5/15/850

@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 public class GameMain {
+	public static Weapon[] weapons;;
+	public static Armor[] armors;
 	public static void main(String[] args) throws Exception{
 		System.out.println("You have started The Game Thing.");
 		System.out.println("This is a Console Based Turn Based Role Playing Game. CBTBRPG - In short.");
@@ -8,14 +10,12 @@ public class GameMain {
 		System.out.println();
 		
 		
-		//Scanner sisend = new Scanner(System.in);
 		System.out.println("Please Enter your Character name:");
 		Player.setName(GameFlow.sisend.next()); 
-		//sisend.close();
 		
 		
 		
-		// Kontrollb, kas mängija on varem mnänginud.
+		// Kontrollb, kas mängija on varem mänginud.
 		DataManager.checkIfPlayerPlayedBefore();
 		if (Player.getFirstGame()){
 			// Creates a new Player According to the Choice The Player Makes.
@@ -26,14 +26,19 @@ public class GameMain {
 		
 		Encounter.chooseClass();
 		
-		//Katsetan Revli
+		//Katsetan Varustust
 		System.out.println();
-		Equipment sword = new Weapon("Mõõk", 10, 12, 3, -7, 5, -4, 7, 2.1, -2.3, 2.5, 600);
-		Weapon[] relvad = DataManager.getWeapons();
+		weapons = DataManager.getWeapons();
 		
-		for (Weapon relv : relvad){
+		for (Weapon relv : weapons){
 			System.out.println();
 			relv.printStats();
+		}
+		
+		armors = DataManager.getArmors();
+		for (Armor armor : armors){
+			System.out.println();
+			armor.printStats();
 		}
 		//sword.printStats();
 		

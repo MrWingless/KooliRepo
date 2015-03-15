@@ -23,7 +23,7 @@ public class GameFlow {
 
 	// This will randomly choose one of the encounters
 	void getRandomEncounter(){
-
+		
 	}
 
 	// This offers the player a choice and checks that player's answer falls within requested parameters

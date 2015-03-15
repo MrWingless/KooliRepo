@@ -1,4 +1,4 @@
-!-- Do not use '!' <- inside names.
+!-- Do not use '!' <- inside names. PS! Changing order existing Weapons will affect saved Playerdata.
 !-- Name minDmg maxDmg BonusHealth Intelligence Dexterity Strength Speed Protection Accuracy Dodge Price
 Mace/2/6/4/2/0/3/0/2/0/0/350
 Whip/3/6/0/1/3/1/2/0/2/1/400
