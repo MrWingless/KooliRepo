@@ -8,17 +8,18 @@ public class GameMain {
 		
 		// Loading Data:
 		weapons = DataManager.getWeapons();
+		armors = DataManager.getArmors();
 		
+		/*
 		for (Weapon weapon : weapons){
 			System.out.println();
 			weapon.printStats();
 		}
 		
-		armors = DataManager.getArmors();
 		for (Armor armor : armors){
 			System.out.println();
 			armor.printStats();
-		}
+		}*/
 		
 		System.out.println("This is a Console Based Turn Based Role Playing Game. CBTBRPG - In short.");
 		System.out.println("First Things First, We must find out if you've played before.");

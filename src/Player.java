@@ -247,6 +247,8 @@ public class Player {
 			default:
 				System.out.println("Error: Player.chooseClass - Class choice higher than 2 :(");
 		}
+		setWeapon(0);
+		setArmor(0);
 	}
 	
 	// Calculates Dmg numbers for the player.
