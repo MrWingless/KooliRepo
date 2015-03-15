@@ -473,14 +473,35 @@ public class Player {
 	}
 	
 	public static double chanceToFlee(Enemy e){
-		return 100.00;
-	}
-	public static double changeToHit(Enemy e){
-		return ((accuracy - e.dodge)/accuracy)*100;
+		
+		double runAway = speed + (intelligence + dexterity)*0.1;
+		double runAfter = e.speed + (e.intelligence + e.dexterity) * 0.1;
+		
+		return Math.round(((runAway - runAfter)/runAway) * 100.00);
 	}
 	
+	//Chance for player to hit enemy
+	public static double chanceToHit(Enemy e){
+		return Math.round(((accuracy - e.dodge)/accuracy) * 100);
+	}
+	
+	//Chance for enemy to hit Player
+	public static double chanceToHitP(Enemy e){
+		return Math.round(((e.accuracy - dodge)/e.accuracy)*100);
+	}
+	
+	//Will see, is the player running away or is enemy catching up
 	public static boolean isFleeing(Enemy e){
-		return false;
+		
+		double fleeChance = chanceToFlee(e);
+		
+		if (fleeChance < 0) {
+			return false;
+		} else if (Math.random()*100 > fleeChance) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	static void damageHealth(int i){
@@ -503,10 +524,8 @@ public class Player {
 	// Will calculate, does player hit enemy or not. Returns amount of damage done, when hit occurs, otherwise returns 0
 	public static int willPlayerHit(Enemy e){
 		calculateDmg();
-		//int minDam = minDmg;
-		//int maxDam = maxDmg;
 		
-		double hitChance = changeToHit(e);
+		double hitChance = chanceToHit(e);
 		if (hitChance < 0) {
 			return 0;
 		} else if (Math.random()*100 > hitChance) {
@@ -517,7 +536,7 @@ public class Player {
 	}
 	
 	public static int willEnemyHit(Enemy e){
-		double hitChance = ((e.accuracy - dodge)/e.accuracy)*100;
+		double hitChance = chanceToHitP(e);
 		
 		if (hitChance < 0) {
 			return 0;
