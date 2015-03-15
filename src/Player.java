@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -328,7 +329,7 @@ public class Player {
 		DataManager.savePlayerData();
 	}
 	
-	static void loadPlayerData(){
+	static void loadPlayerData() throws FileNotFoundException{
 		String[] playerData = DataManager.readPlayerData();
 		//[0] Name,
 		setName(playerData[0]);

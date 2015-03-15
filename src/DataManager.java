@@ -142,8 +142,9 @@ public class DataManager{
 		writer.close();
 	}
 
-	static String[] readPlayerData(){
-		java.util.Scanner fileScanner = new java.util.Scanner("Players/" + Player.getName() +".txt");  
+	static String[] readPlayerData() throws FileNotFoundException{
+		java.io.File player = new java.io.File("Players/" + Player.getName() +".txt");
+		java.util.Scanner fileScanner = new java.util.Scanner(player);  
 		String[] tempPlayerData = new String[16];
 		int counter = 0;
 		while (fileScanner.hasNextLine()) {

@@ -41,7 +41,9 @@ public class GameMain {
 		else{
 			// Load The Data From the File!
 			Player.loadPlayerData();
+			Player.displayInfo();
 		}
+		
 		
 		
 		//Katsetan Varustust
