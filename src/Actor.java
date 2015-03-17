@@ -26,9 +26,9 @@ public class Actor extends BaseStats{
 	public void damageHealth(int i){
 		super.health = super.health - i;
 		if(isDead()){
-			System.out.println("\nCongratulations! You killed " + super.getName());
+			System.out.println("You hit and deal " + i + " points of damage.\nCongratulations! You killed " + super.getName());
 		} else {
-			System.out.println(super.getName() + " is hit by your attack and has " + super.getHealth() + "/" + maxHealth + " health left.");
+			System.out.println( "You hit and deal " + i + " points of damage. " + super.getName() + " has " + super.getHealth() + "/" + maxHealth + " health left.");
 		}
 	}
 }

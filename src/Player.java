@@ -90,7 +90,7 @@ public class Player {
 		return weapon;
 	}
 	
-	public static int getMingDmg() {
+	public static int getMinDmg() {
 		return minDmg;
 	}
 
@@ -302,13 +302,14 @@ public class Player {
 		default: // Other
 			System.out.println("ERROR: Calculating Dmg - Invalid Role");
 		}
-		protection = armor.getProtection() + (int)(strength*0.1);
-		accuracy = armor.getAccuracy() + dexterity*0.1 + speed*0.25;
-		dodge = armor.getDodge() + (int)((dexterity + intelligence)*0.05) + speed*0.25;
+		protection = weapon.getAccuracy() + armor.getProtection() + (int)(strength*0.2);
+		accuracy = weapon.getAccuracy() + armor.getDodge() + (int)(dexterity*0.1) + (int)(speed*0.25);
+		dodge = weapon.getDodge() + armor.getDodge() + (int)((dexterity + intelligence)*0.05) + (int)speed*0.25;
 	}
 	
 	// Displays Player Info to Console.
 	static void displayInfo(){
+		calculateDmg();
 		System.out.println("PLAYER INFO:");
 		System.out.println("Name: \t\t" + name);
 		System.out.println("Level: \t\t" + level + " " + getRole());
@@ -472,80 +473,22 @@ public class Player {
 			return false;
 	}
 	
-	public static double chanceToFlee(Enemy e){
-		
-		double runAway = speed + (intelligence + dexterity)*0.1;
-		double runAfter = e.speed + (e.intelligence + e.dexterity) * 0.1;
-		
-		return Math.round(((runAway - runAfter)/runAway) * 100.00);
-	}
-	
-	//Chance for player to hit enemy
-	public static double chanceToHit(Enemy e){
-		return Math.round(((accuracy - e.dodge)/accuracy) * 100);
-	}
-	
-	//Chance for enemy to hit Player
-	public static double chanceToHitP(Enemy e){
-		return Math.round(((e.accuracy - dodge)/e.accuracy)*100);
-	}
-	
-	//Will see, is the player running away or is enemy catching up
-	public static boolean isFleeing(Enemy e){
-		
-		double fleeChance = chanceToFlee(e);
-		
-		if (fleeChance < 0) {
-			return false;
-		} else if (Math.random()*100 > fleeChance) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-	
 	static void damageHealth(int i){
 		setHealth(getHealth() - i);
 		if (getHealth() <= 0) {
-			System.out.println("Deem. You deaded.");
+			System.out.println("You are hit! You got " + i + " points of damage.");
 		} else {
-			System.out.println("You are hit! You have " + health + "/" + maxHealth + " healt left.\nBe careful!");
+			System.out.println("You are hit! You got " + i + " points of damage and have " + health + "/" + maxHealth + " healt left.\nBe careful!");
 		}
 	}
 	
 	public static void killedEnemy(Enemy e){
 		exp += e.valueInExp;
 		gold += e.valueInGold;
+		System.out.println("You got " + e.valueInGold + " Gold and " + e.valueInExp + " XP");
 		if (exp >= nextLevelAt) {
 			levelUp();
 		}
-	}
-	
-	// Will calculate, does player hit enemy or not. Returns amount of damage done, when hit occurs, otherwise returns 0
-	public static int willPlayerHit(Enemy e){
-		calculateDmg();
-		
-		double hitChance = chanceToHit(e);
-		if (hitChance < 0) {
-			return 0;
-		} else if (Math.random()*100 > hitChance) {
-			return 0;
-		} else {
-			return maxDmg;
-		}
-	}
-	
-	public static int willEnemyHit(Enemy e){
-		double hitChance = chanceToHitP(e);
-		
-		if (hitChance < 0) {
-			return 0;
-		} else if (Math.random()*100 > hitChance) {
-			return 0;
-		} else {
-			return e.maxDmg;
-		}
-		
 	}
 }
 

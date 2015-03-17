@@ -16,5 +16,7 @@ public class Enemy extends Actor{
 		this.powerLevel = level;
 	}
 	
+
+	
 	
 }

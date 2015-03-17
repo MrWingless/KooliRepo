@@ -127,7 +127,7 @@ public class GameFlow {
 				getRandomEncounter();
 		} while(!Player.isDead());
 		
-		System.out.println(" Whoops. It seems like you had an accident.");
+		System.out.println(" Whoops. It seems like you dieded.");
 		if (Player.isDead()){
 			DataManager.deletePlayerFile();
 			System.out.println("Your Saves have been deleted");
@@ -160,6 +160,7 @@ public class GameFlow {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
+			System.out.println("Thank You for playing!");
 			System.exit(0);
 		}
 	}
