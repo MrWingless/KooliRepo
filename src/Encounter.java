@@ -14,11 +14,11 @@ public class Encounter {
 	public static void combat(){
 		isInCombat = true;
 		Combat.enemyMalee();
-		try {
+		/*try {
 			GameMain.refreshEnemies();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		isInCombat = false;
 	}
 

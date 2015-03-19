@@ -15,6 +15,20 @@ public class Enemy extends Actor{
 		this.maxDmg = maxDmg;
 		this.powerLevel = level;
 	}
+	public Enemy(Enemy e) {
+		super(e.name, e.health, e.intelligence, e.dexterity, e.strength, e.speed,
+				e.protection, e.accuracy, e.dodge, e.valueInGold, e.valueInExp);
+		this.powerLevel = e.powerLevel;
+		this.minDmg = e.minDmg;
+		this.maxDmg = e.maxDmg;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 
 	

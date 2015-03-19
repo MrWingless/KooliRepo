@@ -9,9 +9,9 @@ public class Combat {
 		
 		//Get Enemies and choose 1 randomly 
 		
-		double amtOfEnemies = GameMain.enemies.length -1;
+		double amtOfEnemies = GameMain.enemies.length - 1;
 		int rand = (int)(Math.round(Math.random()*amtOfEnemies));
-		e = GameMain.enemies[rand];
+		e = new Enemy(GameMain.enemies[rand]);
 		
 		System.out.println("You are encountered by " + e.getName());
 		e.printStats();
