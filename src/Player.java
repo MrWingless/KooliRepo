@@ -303,8 +303,8 @@ public class Player {
 			System.out.println("ERROR: Calculating Dmg - Invalid Role");
 		}
 		protection = weapon.getAccuracy() + armor.getProtection() + (int)(strength*0.2);
-		accuracy = weapon.getAccuracy() + armor.getDodge() + (int)(dexterity*0.1) + (int)(speed*0.25);
-		dodge = weapon.getDodge() + armor.getDodge() + (int)((dexterity + intelligence)*0.05) + (int)speed*0.25;
+		accuracy = weapon.getAccuracy() + armor.getAccuracy() + 5;
+		dodge = weapon.getDodge() + armor.getDodge() + 3;
 	}
 	
 	// Displays Player Info to Console.
