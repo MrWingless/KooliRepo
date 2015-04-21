@@ -35,6 +35,8 @@ public class GameMain extends Application {
 	public static int gameX = 800;
 	public static int gameY = 600;
 	
+	boolean videoMenuVisible = false;
+	
 	public static void main(String[] args) throws Exception{
 		//System.out.println("You have started The Game Thing.");
 		
@@ -197,34 +199,43 @@ public class GameMain extends Application {
 			
 			videoMenu.getChildren().addAll(low, medium, high);
 			
+			
 			MenuButton btnOptVideo = new MenuButton("Video");
 			btnOptVideo.setOnMouseClicked(event -> {
-				getChildren().add(videoMenu);
+				if (!videoMenuVisible) {
+					getChildren().add(videoMenu);
+					videoMenuVisible = true;
+				}
+				
 				
 				TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), videoMenu);
+				TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), videoMenu);
 				tt1.setToX(gameX*3/5);
 				tt1.play();
 				
 				low.setOnMouseClicked(event1 -> {
-					tt1.setToX(gameX);
-					tt1.play();
-					tt1.setOnFinished(event11 -> { getChildren().remove(videoMenu); });
+					tt2.setToX(gameX);
+					tt2.play();
+					tt2.setOnFinished(event11 -> { getChildren().remove(videoMenu); });
+					videoMenuVisible = false;
 					gameX = 600;
 					gameY = 480;
 				});
 				
 				medium.setOnMouseClicked(event1 -> {
-					tt1.setToX(gameX);
-					tt1.play();
-					tt1.setOnFinished(event11 -> { getChildren().remove(videoMenu); });
+					tt2.setToX(gameX);
+					tt2.play();
+					tt2.setOnFinished(event11 -> { getChildren().remove(videoMenu); });
+					videoMenuVisible = false;
 					gameX = 800;
 					gameY = 600;
 				});
 				
 				high.setOnMouseClicked(event1 -> {
-					tt1.setToX(gameX);
-					tt1.play();
-					tt1.setOnFinished(event11 -> { getChildren().remove(videoMenu); });
+					tt2.setToX(gameX);
+					tt2.play();
+					tt2.setOnFinished(event11 -> { getChildren().remove(videoMenu); });
+					videoMenuVisible = false;
 					gameX = 1024;
 					gameY = 756;
 				});
@@ -240,6 +251,14 @@ public class GameMain extends Application {
 				//Get Main Menu back
 				TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), mainMenu);
 				tt1.setToX(gameX/5);
+				
+				if (videoMenuVisible) {
+					TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), videoMenu);
+					tt2.setToX(gameX);
+					tt2.play();
+					videoMenuVisible = false;
+					tt2.setOnFinished(event2 -> getChildren().remove(videoMenu));
+				}
 				
 				tt.play();
 				tt1.play();
