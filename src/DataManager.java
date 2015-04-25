@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.File;
 
 // This class should manage the files - as in get info from files and save info to files.
 public class DataManager{
@@ -190,6 +191,15 @@ public class DataManager{
 		}
 		fileScanner.close();
 		return tempPlayerData;
+	}
+	
+	public static File[] getAvailablePlayerFiles(){
+		String asi[] = new String[] { "asi" };
+		
+		File playersDirectory = new File("Players");
+		File players[] = playersDirectory.listFiles();
+		
+		return players;
 	}
 	
 	static void deletePlayerFile(){

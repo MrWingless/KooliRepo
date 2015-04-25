@@ -1,7 +1,11 @@
+import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+
 
 
 
@@ -151,6 +155,7 @@ public class GameMain extends Application {
 			VBox loadMenu = new VBox(15);
 			VBox optionsMenu = new VBox(15);
 			VBox videoMenu = new VBox(15);
+			
 
 			mainMenu.setTranslateX(gameX/5);
 			mainMenu.setTranslateY(gameY/4);
@@ -165,6 +170,7 @@ public class GameMain extends Application {
 			videoMenu.setTranslateY(gameY/4);
 
 
+
 			//Main Menu buttons
 			MenuButton btnMainNew = new MenuButton("New Player");
 			btnMainNew.setOnMouseClicked(event -> {
@@ -173,6 +179,29 @@ public class GameMain extends Application {
 
 			MenuButton btnMainLoad = new MenuButton("Load Player");
 			btnMainLoad.setOnMouseClicked(event -> {
+				VBox playerMenu = new VBox(15);
+				playerMenu.setTranslateX(gameX);
+				playerMenu.setTranslateY(gameY/4);
+				ArrayList<MenuButton> playersButtons = new ArrayList<MenuButton>();
+				for (File playerFile : DataManager.getAvailablePlayerFiles()){
+					String filename = playerFile.getName();
+					String playerName = filename.replaceFirst(".txt", "");
+					//System.out.println(playerName);
+					playersButtons.add(new MenuButton(playerName));
+				}
+				playersButtons.add(new MenuButton("Back"));
+				
+				
+				for (int i = 0; i < playersButtons.size(); i++){
+					if (i == (playersButtons.size() - 1)){
+						playersButtons.get(i).setOnMouseClicked(event2 -> {
+							transistWindow(playerMenu, mainMenu, null);
+						});
+					}
+				}
+
+				playerMenu.getChildren().addAll(playersButtons);
+				transistWindow(mainMenu, playerMenu, null);
 
 			});
 
