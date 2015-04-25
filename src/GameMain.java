@@ -37,7 +37,7 @@ public class GameMain extends Application {
 	public static ImageView menuBgView;
 	public static Text theGameThing = new Text("the Game Thing");
 
-	boolean videoMenuVisible = false;
+	boolean secondaryMenuVisible = false;
 
 	public static void main(String[] args) throws Exception{
 		//System.out.println("You have started The Game Thing.");
@@ -178,6 +178,8 @@ public class GameMain extends Application {
 
 			MenuButton btnMainOptions = new MenuButton("Options");
 			btnMainOptions.setOnMouseClicked(event -> {
+				transistWindow(mainMenu, optionsMenu, null);
+				/*
 				getChildren().add(optionsMenu);
 				//Move Options Menu away
 				TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), mainMenu);
@@ -188,8 +190,7 @@ public class GameMain extends Application {
 
 				tt.play();
 				tt1.play();
-				tt.setOnFinished(event1 -> getChildren().remove(mainMenu));
-
+				tt.setOnFinished(event1 -> getChildren().remove(mainMenu));*/
 			});
 
 			MenuButton btnMainExit = new MenuButton("Exit");
@@ -216,9 +217,9 @@ public class GameMain extends Application {
 
 			MenuButton btnOptVideo = new MenuButton("Video");
 			btnOptVideo.setOnMouseClicked(event -> {
-				if (!videoMenuVisible) {
+				if (!secondaryMenuVisible) {
 					getChildren().add(videoMenu);
-					videoMenuVisible = true;
+					secondaryMenuVisible = true;
 				}
 
 
@@ -231,7 +232,7 @@ public class GameMain extends Application {
 					tt2.setToX(gameX);
 					tt2.play();
 					tt2.setOnFinished(event11 -> { getChildren().remove(videoMenu); });
-					videoMenuVisible = false;
+					secondaryMenuVisible = false;
 					gameX = 600;
 					gameY = 480;
 					refreshStage(primaryStage);
@@ -241,7 +242,7 @@ public class GameMain extends Application {
 					tt2.setToX(gameX);
 					tt2.play();
 					tt2.setOnFinished(event11 -> { getChildren().remove(videoMenu); });
-					videoMenuVisible = false;
+					secondaryMenuVisible = false;
 					gameX = 800;
 					gameY = 600;
 					refreshStage(primaryStage);
@@ -251,7 +252,7 @@ public class GameMain extends Application {
 					tt2.setToX(gameX);
 					tt2.play();
 					tt2.setOnFinished(event11 -> { getChildren().remove(videoMenu); });
-					videoMenuVisible = false;
+					secondaryMenuVisible = false;
 					gameX = 1024;
 					gameY = 756;
 					refreshStage(primaryStage);
@@ -260,6 +261,8 @@ public class GameMain extends Application {
 
 			MenuButton btnOptBack = new MenuButton("Back");
 			btnOptBack.setOnMouseClicked(event -> {
+				transistWindow(optionsMenu, mainMenu, videoMenu);
+				/*
 				getChildren().add(mainMenu);
 				//Move Options Menu away
 				TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), optionsMenu);
@@ -268,17 +271,17 @@ public class GameMain extends Application {
 				TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), mainMenu);
 				tt1.setToX(gameX/5);
 
-				if (videoMenuVisible) {
+				if (secondaryMenuVisible) {
 					TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), videoMenu);
 					tt2.setToX(gameX);
 					tt2.play();
-					videoMenuVisible = false;
+					secondaryMenuVisible = false;
 					tt2.setOnFinished(event2 -> getChildren().remove(videoMenu));
 				}
 
 				tt.play();
 				tt1.play();
-				tt.setOnFinished(event1 -> getChildren().remove(optionsMenu));
+				tt.setOnFinished(event1 -> getChildren().remove(optionsMenu));*/
 			});
 
 			mainMenu.getChildren().addAll(btnMainNew, btnMainLoad, btnMainOptions, btnMainExit);
@@ -316,6 +319,28 @@ public class GameMain extends Application {
 			menuBgView.setFitHeight(gameY);
 			theGameThing.setTranslateX(gameX/3);
 			theGameThing.setTranslateY(gameY/10);
+		}
+		
+		public void transistWindow(VBox from, VBox to, VBox otherMenu){
+			getChildren().add(to);
+			// Moves the first window away
+			TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), from);
+			tt.setToX(-gameX/4);
+			// Brings the next window in
+			TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), to);
+			tt1.setToX(gameX/5);
+			
+			if (secondaryMenuVisible) {
+				TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), otherMenu);
+				tt2.setToX(gameX);
+				tt2.play();
+				secondaryMenuVisible = false;
+				tt2.setOnFinished(event2 -> getChildren().remove(otherMenu));
+			}
+			
+			tt.play();
+			tt1.play();
+			tt.setOnFinished(event1 -> getChildren().remove(from));
 		}
 	}
 
