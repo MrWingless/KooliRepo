@@ -1,10 +1,8 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
 
 
-public class Player implements Serializable{
-	private static final long serialVersionUID = 5005835649257092061L;
+public class Player {
 	private static String name;
 	private static boolean isFirstGame;
 	private static boolean hasBeenCreated = false;
