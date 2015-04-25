@@ -1,6 +1,10 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.File;
 
 // This class should manage the files - as in get info from files and save info to files.
 public class DataManager{
@@ -173,6 +177,14 @@ public class DataManager{
 		writer.println("# Gold");
 		writer.println(player[16]);
 		writer.close();
+	}
+	
+	static void savePlayerData2(File file, Player player) throws IOException, FileNotFoundException{
+		FileOutputStream fileOut = new FileOutputStream(file);
+		ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+		
+		objectOut.writeObject(player);
+		objectOut.close();
 	}
 
 	// Read played data from the file and returns the data as an Array os Strings

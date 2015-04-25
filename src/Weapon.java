@@ -1,5 +1,8 @@
+import java.io.Serializable;
 
-class Weapon extends Equipment{
+
+class Weapon extends Equipment implements Serializable{
+	private static final long serialVersionUID = 3497707473265615242L;
 	private static int counter = 0;
 	private int code;
 	int minDmg; // How much additional Minimum Damage is added to the player
