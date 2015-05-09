@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class Enemy extends Actor{
+
+public class Enemy extends Actor implements Serializable{
 	int powerLevel;
 	int minDmg;
 	int maxDmg;

@@ -174,7 +174,7 @@ public class GameMain extends Application {
 			//Main Menu buttons
 			MenuButton btnMainNew = new MenuButton("New Player");
 			btnMainNew.setOnMouseClicked(event -> {
-
+				
 			});
 
 			MenuButton btnMainLoad = new MenuButton("Load Player");
@@ -373,6 +373,8 @@ public class GameMain extends Application {
 		}
 	}
 
+	
+	
 	private static class MenuButton extends StackPane {
 
 		private Text text;

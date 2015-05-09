@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class BaseStats {
+
+public class BaseStats implements Serializable{
 	String name; // Name of the Actor/Equipment
 	
 	int health;

@@ -1,5 +1,7 @@
+import java.io.Serializable;
 
-public class Armor extends Equipment{
+
+public class Armor extends Equipment implements Serializable{
 	private static int counter = 0;
 	private int code;
 	public Armor(String name, int health, int intelligence, int dexterity,
