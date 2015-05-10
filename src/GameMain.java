@@ -1,9 +1,11 @@
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 
 
@@ -418,7 +420,36 @@ public class GameMain extends Application {
 		}
 	}
 
-
+	private static class characterButton extends StackPane {
+		
+		private Text charType;
+		private ImageView charBtnImg;
+		
+		public characterButton (String type) throws IOException {
+			charType = new Text(type);
+			charType.setFont(Font.font("Showcard Gothic", 15));
+			charType.setFill(Color.WHITE);
+			charType.setTranslateX(5);
+			
+			InputStream is = Files.newInputStream(Paths.get("Data/images/" + type + ".png"));
+			Image charImg = new Image(is);
+			is.close();
+			
+			charBtnImg = new ImageView(charImg);
+			charBtnImg.resize(30, 30);
+			
+			VBox cBtn = new VBox(5);
+			
+			cBtn.getChildren().addAll(charBtnImg, charType);
+			
+			getChildren().setAll(cBtn);
+		}
+		
+		
+		
+		
+		
+	}
 
 }
 

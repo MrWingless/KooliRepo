@@ -1,6 +1,8 @@
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.File;
@@ -118,19 +120,16 @@ public class DataManager{
 	
 	// Save Player Data into a File
 	static void savePlayerData() throws IOException{
-		
+		/*
 			File playerData = new File("Players/" + Player.getName() +".txt");
-			
 			if (!playerData.exists()) {
 				playerData.createNewFile(); 
 			}
-
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Players/" + Player.getName() +".txt"));
-		
 		oos.writeObject(Player.class);
-		
 		oos.close();
-		/*
+		*/
+		
 		String[] player = Player.getInfoAsStringArray();
 		java.io.File playerData = new java.io.File("Players/" + player[0] +".txt");
 		if (!playerData.exists()){
@@ -189,7 +188,7 @@ public class DataManager{
 		writer.println("# Gold");
 		writer.println(player[16]);
 		writer.close();
-		*/
+		
 	}
 
 	// Read played data from the file and returns the data as an Array os Strings
@@ -208,6 +207,22 @@ public class DataManager{
 		fileScanner.close();
 		return tempPlayerData;
 	}
+	
+	//do not use...yet.
+	static Object loadPlayerData(String name) throws FileNotFoundException, IOException, ClassNotFoundException {
+		
+		File playerData = new File("Players/" + name +".txt");
+		
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Players/" + name +".txt"));
+		
+		Object o = ois.readObject();
+		
+		ois.close();
+		
+		return o;
+		
+	}
+	
 	
 	public static File[] getAvailablePlayerFiles(){
 		String asi[] = new String[] { "asi" };

@@ -372,6 +372,12 @@ public class Player implements Serializable{
 		}
 	}
 	
+	static void load() {
+		
+		
+		
+	}
+	
 	static void loadPlayerData() throws FileNotFoundException{
 		String[] playerData = DataManager.readPlayerData();
 		//[0] Name,
