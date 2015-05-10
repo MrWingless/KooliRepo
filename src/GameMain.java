@@ -359,6 +359,7 @@ public class GameMain extends Application {
 			tt.setToX(-gameX/4);
 			// Brings the next window in
 			TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), to);
+			tt1.setFromX(gameX);
 			tt1.setToX(gameX/5);
 			
 			if (secondaryMenuVisible) {
