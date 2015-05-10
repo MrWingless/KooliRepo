@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -11,7 +12,13 @@ import java.util.Scanner;
 
 
 
+
+
+
+
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,6 +27,7 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -157,6 +165,7 @@ public class GameMain extends Application {
 			VBox loadMenu = new VBox(15);
 			VBox optionsMenu = new VBox(15);
 			VBox videoMenu = new VBox(15);
+			VBox playerInfo = new VBox(5);
 			
 
 			mainMenu.setTranslateX(gameX/5);
@@ -170,6 +179,9 @@ public class GameMain extends Application {
 
 			videoMenu.setTranslateX(gameX);
 			videoMenu.setTranslateY(gameY/4);
+			
+			playerInfo.setTranslateX(gameX);
+			playerInfo.setTranslateY(gameY/6);
 
 
 
@@ -189,7 +201,35 @@ public class GameMain extends Application {
 					String filename = playerFile.getName();
 					String playerName = filename.replaceFirst(".txt", "");
 					//System.out.println(playerName);
-					playersButtons.add(new MenuButton(playerName));
+					MenuButton playerButton = new MenuButton(playerName);
+					playerButton.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+						@Override
+						public void handle(MouseEvent event) {
+							Player.setName(playerName);
+							try {
+								Player.loadPlayerData();
+								Player.displayInfotoVBox(playerInfo);
+								
+								if (!secondaryMenuVisible) {
+									getChildren().addAll(playerInfo);
+									secondaryMenuVisible = true;
+								} else{
+									getChildren().remove(playerInfo);
+									getChildren().add(playerInfo);
+								}
+								
+								TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), playerInfo);
+								//TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), playerInfo);
+								tt1.setToX(gameX*3/5);
+								tt1.play();
+							} catch (FileNotFoundException e) {
+								System.out.println(e.getMessage());
+							}
+						}
+					});
+					
+					playersButtons.add(playerButton);
 				}
 				playersButtons.add(new MenuButton("Back"));
 				
@@ -197,9 +237,9 @@ public class GameMain extends Application {
 				for (int i = 0; i < playersButtons.size(); i++){
 					if (i == (playersButtons.size() - 1)){
 						playersButtons.get(i).setOnMouseClicked(event2 -> {
-							transistWindow(playerMenu, mainMenu, null);
+							transistWindow(playerMenu, mainMenu, playerInfo);
 						});
-					}
+					} 
 				}
 
 				playerMenu.getChildren().addAll(playersButtons);

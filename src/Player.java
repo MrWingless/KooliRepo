@@ -1,6 +1,17 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import javafx.geometry.Pos;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 
 public class Player implements Serializable{
@@ -334,6 +345,50 @@ public class Player implements Serializable{
 			System.out.println("Dodge: \t\t" + dodge);
 	}
 	
+	static void displayInfotoVBox(VBox infoPage){
+
+		Rectangle bg = new Rectangle(200, 800);
+		bg.setOpacity(0.5);
+		bg.setFill(Color.BLACK);
+		bg.setEffect(new GaussianBlur(3.5));
+		
+		ArrayList<Text> textArray = new ArrayList<Text>();
+		Text title = new Text("Player Info:");
+		title.setFont(Font.font("Showcard Gothic", 20));
+		title.setFill(Color.WHITE);
+		textArray.add(title);
+		calculateDmg();
+		textArray.add(setPlayerInfoFont("Name: \t\t" + name));
+		textArray.add(setPlayerInfoFont("Level: \t\t" + level + " " + getRole()));
+		textArray.add(setPlayerInfoFont("Exp: \t\t\t" + exp + " / " + nextLevelAt));
+		textArray.add(setPlayerInfoFont("Gold: \t\t" + gold));
+		textArray.add(setPlayerInfoFont("Health: \t\t" + health + " / " + maxHealth));
+		textArray.add(setPlayerInfoFont("Damage: \t\t" + minDmg + " - " + maxDmg));
+		textArray.add(setPlayerInfoFont("Intelligence: \t" + intelligence));
+		textArray.add(setPlayerInfoFont("Dexterity: \t" + dexterity));
+		textArray.add(setPlayerInfoFont("Strength: \t\t" + strength));
+		textArray.add(setPlayerInfoFont("Speed: \t\t" + speed));
+		if (protection != 0.0)
+			textArray.add(setPlayerInfoFont("Protection: \t" + protection));
+		if (accuracy != 0.0)
+			textArray.add(setPlayerInfoFont("Accuracy: \t" + accuracy));
+		if (dodge != 0.0)
+			textArray.add(setPlayerInfoFont("Dodge: \t\t" + dodge));
+
+		infoPage.getChildren().clear();
+		//infoPage.getChildren().add(bg);
+		//infoPage.backgroundProperty().set(new Background(new BackgroundFill(Color.BLACK, null, null)));
+		//infoPage.setStyle("-fx-background-color: rgba(0, 0, 0, 0);");
+		infoPage.getChildren().addAll(textArray);
+	}
+	
+	private static Text setPlayerInfoFont(String text){
+		Text theText = new Text(text);
+		theText.setFont(Font.font("Showcard Gothic", 12));
+		theText.setFill(Color.WHITE);
+		return theText;
+	}
+	
 	// Gets Player Info and Returns it as String Array (Used for Saving Player Info)
 	static String[] getInfoAsStringArray(){
 		String[] player = {
@@ -417,6 +472,7 @@ public class Player implements Serializable{
 		//[16] Gold
 		setGold(Integer.parseInt(playerData[16]));
 		setCreated();
+		//displayInfo();
 	}
 	
 	static void rest(){
