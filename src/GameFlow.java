@@ -191,11 +191,49 @@ public class GameFlow extends Parent {
 		
 		InputStream is = Files.newInputStream(Paths.get("Data/images/menu_bg.jpg"));
 		Image menu_bg = new Image(is);
+
+		// Getting player related images
+		is = Files.newInputStream(Paths.get("Data/images/player_portrait_mage.png"));
+		Image player_portrait = new Image(is);
+		ImageView playerPortrait = new ImageView();
+		playerPortrait.setImage(player_portrait);
+		playerPortrait.setX(0);
+		playerPortrait.setY(0);
+		is = Files.newInputStream(Paths.get("Data/images/player_idle.png"));
+		Image player_idle = new Image(is);
+		Image[] player_attack = new Image[] {
+				new Image(Files.newInputStream(Paths.get("Data/images/player_atk_1.png"))),
+				new Image(Files.newInputStream(Paths.get("Data/images/player_atk_2.png"))),
+				new Image(Files.newInputStream(Paths.get("Data/images/player_atk_3.png")))
+		};
+		
+		// Getting enemy related images ?? 
+		is = Files.newInputStream(Paths.get("Data/images/enemy_portrait.png"));
+		Image enemy_portrait = new Image(is);
+		is = Files.newInputStream(Paths.get("Data/images/enemy_idle.png"));
+		Image enemy_idle = new Image(is);
+
+		// Getting health bar images
+		is = Files.newInputStream(Paths.get("Data/images/health_bar.png"));
+		Image health_bar = new Image(is);
+		ImageView playerHealthBar = new ImageView();
+		playerHealthBar.setImage(health_bar);
+		playerHealthBar.setX(150);
+		is = Files.newInputStream(Paths.get("Data/images/health_damaged.png"));
+		Image health_damaged = new Image(is);
+		ImageView playerHealthDamaged = new ImageView();
+		playerHealthDamaged.setImage(health_damaged);
+		playerHealthDamaged.setX(150);
+		is = Files.newInputStream(Paths.get("Data/images/health_surround.png"));
+		Image health_surround = new Image(is);
+		ImageView playerHealthSurround = new ImageView();
+		playerHealthSurround.setImage(health_surround);
+		playerHealthSurround.setX(147);
+		
 		is.close();
 		ImageView gameBgView= new ImageView(menu_bg);
 		
-		
-		gameRoot.getChildren().addAll(gameBgView);
+		gameRoot.getChildren().addAll(playerHealthSurround, playerHealthDamaged, playerHealthBar, playerPortrait);
 		
 		Scene scene = new Scene(gameRoot);
 		gameStage.setWidth(GameMain.gameX);
