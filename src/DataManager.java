@@ -19,6 +19,19 @@ public class DataManager{
 		PlayerMessage.welcomePlayer();
 	}
 	
+	static void checkIfPlayerExists(String name) throws Exception{
+		java.io.File playerData = new java.io.File("Players/" + name +".txt");
+		if (!playerData.exists()){
+			Player.setFirstGame(true);
+			//playerData.createNewFile();
+		}
+		else{
+			Player.setFirstGame(false);
+			throw new NameExistsException("Player with this name allready exists.");
+		}
+
+	}
+	
 	// Returns file's Lines as Separate String in String Array where values are separated by '/'-s
 	private static String[] readFile(String path) throws FileNotFoundException{
 		java.io.File file = new java.io.File(path);

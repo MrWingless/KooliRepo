@@ -158,6 +158,10 @@ public class GameMain extends Application {
 
 	}
 
+	/**
+	 * Class to create Game Menu
+	 * No menu, no game
+	 */
 	private class GameMenu extends Parent {
 		public GameMenu(Stage primaryStage) {
 			VBox mainMenu = new VBox(15);
@@ -196,7 +200,7 @@ public class GameMain extends Application {
 			MenuButton btnMainOptions = new MenuButton("Options");
 			MenuButton btnMainExit = new MenuButton("Exit");
 			
-			//New Player Menu buttons
+			//New Player Menu buttons, text and textField
 			Text insertName = new Text("Player name:");
 			TextField newName = new TextField();
 			CharacterButton mageBtn = new CharacterButton("Mage");
@@ -204,7 +208,18 @@ public class GameMain extends Application {
 			CharacterButton warriorBtn = new CharacterButton("Warrior");
 			MenuButton nPBack = new MenuButton("Back");
 			
+			//Load Player Menu buttons
+			
 			//Options Menu Buttons
+			MenuButton btnOptVideo = new MenuButton("Video");
+			MenuButton btnOptBack = new MenuButton("Back");
+			
+			//Video Options buttons and text.
+			Text txVideoMenu = new Text("Choose Resolution");
+			MenuButton low = new MenuButton("640x480");
+			MenuButton medium = new MenuButton("800x600");
+			MenuButton high = new MenuButton("1024x756");
+			
 			
 			btnMainNew.setOnMouseClicked(event -> {
 				transistWindow(mainMenu, newPlayerMenu, null);
@@ -258,11 +273,8 @@ public class GameMain extends Application {
 			nPBack.setOnMouseClicked(event -> {
 				transistWindow(newPlayerMenu, mainMenu, null);
 			});
-			
-			
-			
+
 			btnMainLoad.setOnMouseClicked(event -> {
-				
 				VBox playerMenu = new VBox(15);
 				playerMenu.setTranslateX(gameX);
 				playerMenu.setTranslateY(gameY/5);
@@ -294,7 +306,6 @@ public class GameMain extends Application {
 											getChildren().remove(playerInfo);
 											getChildren().add(playerInfo);
 										}
-										
 										TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), playerInfo);
 										//TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), playerInfo);
 										tt1.setToX(gameX*3/5);
@@ -328,18 +339,6 @@ public class GameMain extends Application {
 			
 			btnMainOptions.setOnMouseClicked(event -> {
 				transistWindow(mainMenu, optionsMenu, null);
-				/*
-				getChildren().add(optionsMenu);
-				//Move Options Menu away
-				TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), mainMenu);
-				tt.setToX(-gameX/4);
-				//Get Main Menu back
-				TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), optionsMenu);
-				tt1.setToX(gameX/5);
-
-				tt.play();
-				tt1.play();
-				tt.setOnFinished(event1 -> getChildren().remove(mainMenu));*/
 			});
 
 			
@@ -365,26 +364,16 @@ public class GameMain extends Application {
 						ft1.play();
 					}
 				});
-				//ft.setOnFinished(event1 -> System.exit(0));
 			});
-
-			//Options Menu Buttons
-
-			Text txVideoMenu = new Text("Choose Resolution");
+			
 			txVideoMenu.setFont(Font.font("Showcard Gothic", 20));
 			txVideoMenu.setFill(Color.WHITE);
-			MenuButton low = new MenuButton("640x480");
-			MenuButton medium = new MenuButton("800x600");
-			MenuButton high = new MenuButton("1024x756");
 
-			MenuButton btnOptVideo = new MenuButton("Video");
 			btnOptVideo.setOnMouseClicked(event -> {
 				if (!secondaryMenuVisible) {
 					getChildren().add(videoMenu);
 					secondaryMenuVisible = true;
 				}
-
-
 				TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), videoMenu);
 				TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), videoMenu);
 				tt1.setToX(gameX*3/5);
@@ -421,31 +410,13 @@ public class GameMain extends Application {
 				});
 			});
 
-			MenuButton btnOptBack = new MenuButton("Back");
+			
 			btnOptBack.setOnMouseClicked(event -> {
 				transistWindow(optionsMenu, mainMenu, videoMenu);
-				/*
-				getChildren().add(mainMenu);
-				//Move Options Menu away
-				TranslateTransition tt = new TranslateTransition(Duration.seconds(0.25), optionsMenu);
-				tt.setToX(gameX);
-				//Get Main Menu back
-				TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), mainMenu);
-				tt1.setToX(gameX/5);
-
-				if (secondaryMenuVisible) {
-					TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), videoMenu);
-					tt2.setToX(gameX);
-					tt2.play();
-					secondaryMenuVisible = false;
-					tt2.setOnFinished(event2 -> getChildren().remove(videoMenu));
-				}
-
-				tt.play();
-				tt1.play();
-				tt.setOnFinished(event1 -> getChildren().remove(optionsMenu));*/
 			});
 
+			
+			//Adding buttons and texts under menus.
 			mainMenu.getChildren().addAll(btnMainNew, btnMainLoad, btnMainOptions, btnMainExit);
 			optionsMenu.getChildren().addAll(btnOptVideo, btnOptBack);
 			videoMenu.getChildren().addAll(txVideoMenu,low, medium, high);
@@ -455,6 +426,7 @@ public class GameMain extends Application {
 			bg.setFill(Color.GRAY);
 			bg.setOpacity(0.4);
 			
+			//Game title
 			theGameThing.setFont(Font.font("Showcard Gothic", 40));
 			theGameThing.setFill(Color.WHITE);
 			theGameThing.setTranslateX(gameX/3);
@@ -473,7 +445,13 @@ public class GameMain extends Application {
 
 			getChildren().addAll(bg, mainMenu, theGameThing);
 		}
-		
+
+		/**
+		 * Method to create new Player
+		 * @param type [0] - Mage, [1] - Rogue, [2] - Warrior
+		 * @param newName - Players Name TextField.
+		 * @throws NameMissingException
+		 */
 		public void createPlayer(int type, TextField newName) throws NameMissingException {
 			
 			if (DataManager.getAvailablePlayerFiles().length > 6) {
@@ -513,6 +491,10 @@ public class GameMain extends Application {
 			}
 		}
 		
+		/**
+		 * Method to refresh game after resolution change
+		 * @param primaryStage
+		 */
 		public void refreshStage(Stage primaryStage) {
 			primaryStage.setWidth(gameX);
 			primaryStage.setHeight(gameY);
@@ -522,6 +504,12 @@ public class GameMain extends Application {
 			theGameThing.setTranslateY(gameY/10);
 		}
 		
+		/**
+		 * Method to move menus around.
+		 * @param from - this menu will be gone
+		 * @param to - this menu will appear out of.. magic
+		 * @param otherMenu - sometimes there are too many menus
+		 */
 		public void transistWindow(VBox from, VBox to, VBox otherMenu){
 			getChildren().add(to);
 			// Moves the first window away
@@ -545,6 +533,10 @@ public class GameMain extends Application {
 			tt.setOnFinished(event1 -> getChildren().remove(from));
 		}
 		
+		/**
+		 * And this actually starts the game. so kinda important
+		 * @param primaryStage
+		 */
 		public void StartGameWindow(Stage primaryStage) {
 			try {
 				GameFlow.GameWindow(primaryStage);
@@ -554,10 +546,19 @@ public class GameMain extends Application {
 		}
 	}
 	
+	/**
+	 * Class to make menu buttons.
+	 * @author Margus
+	 *
+	 */
 	public static class MenuButton extends StackPane {
 
 		private Text text;
-
+		
+		/**
+		 * Method to make a menu button
+		 * @param name - String value for button name
+		 */
 		public MenuButton(String name) {
 			text = new Text(name);
 			text.setFont(Font.font("Showcard Gothic", 15));
@@ -596,17 +597,25 @@ public class GameMain extends Application {
 			setOnMouseReleased(event -> setEffect(null));
 		}
 	}
-
+	
+	/**
+	 * Class to make Character Buttons for New Player Menu
+	 * @author Margus
+	 *
+	 */
 	private static class CharacterButton extends StackPane {
 		
 		private Text charType;
 		private ImageView charBtnImg;
 		
+		/**
+		 * Method for Character button
+		 * @param type - String value for character type: Mage, Rogue or Warrior
+		 */
 		public CharacterButton (String type) {
 			charType = new Text(type);
 			charType.setFont(Font.font("Showcard Gothic", 15));
 			charType.setFill(Color.WHITE);
-			
 			
 			try {
 				InputStream is = Files.newInputStream(Paths.get("Data/images/" + type + "_portrait.png"));
@@ -617,10 +626,8 @@ public class GameMain extends Application {
 				System.out.println("Character portrait picture missing - " + type);
 			}
 			
-			DropShadow drop = new DropShadow(50, Color.LIGHTBLUE);
+			DropShadow drop = new DropShadow(10, Color.LIGHTBLUE);
 			drop.setInput(new Glow());
-			
-			//charBtnImg.resize(30, 30);
 			
 			VBox cBtn = new VBox(5);
 			cBtn.setAlignment(Pos.CENTER);
