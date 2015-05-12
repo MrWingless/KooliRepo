@@ -2,6 +2,10 @@ import java.io.Serializable;
 
 
 public class Enemy extends Actor implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 243622269386955L;
 	int powerLevel;
 	int minDmg;
 	int maxDmg;

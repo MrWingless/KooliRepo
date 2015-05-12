@@ -3,10 +3,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import javafx.geometry.Pos;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

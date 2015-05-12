@@ -2,6 +2,11 @@ import java.io.Serializable;
 
 
 public class BaseStats implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8084967726162490453L;
+
 	String name; // Name of the Actor/Equipment
 	
 	int health;

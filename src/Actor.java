@@ -1,6 +1,10 @@
 
 public class Actor extends BaseStats{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2308415207546276363L;
 	int valueInGold; // How much gold does killing this guy award
 	int valueInExp; // How much experience does killing this guy award
 

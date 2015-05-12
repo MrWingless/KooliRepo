@@ -1,6 +1,10 @@
 import java.io.Serializable;
 
 public class Equipment extends BaseStats implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7349177393193333061L;
 	int price; // Price of the piece of equipment
 	
 	public Equipment(String name, int health, int intelligence, int dexterity,
