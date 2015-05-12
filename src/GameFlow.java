@@ -1,8 +1,25 @@
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
+import javafx.event.EventType;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-public class GameFlow {
+
+public class GameFlow extends Parent {
+	
+	static Stage gameStage;
+	
 	public static Scanner sisend = new Scanner(System.in);
 	//static int[] optionNumber = new int[10]; // Will not need this, since Array already has numbers?
 	static String[] optionText = new String[10];
@@ -164,4 +181,49 @@ public class GameFlow {
 			System.exit(0);
 		}
 	}
+	
+	public static void GameWindow(Stage primaryStage) throws IOException {
+		gameStage = new Stage();
+		primaryStage.hide();
+		
+		gameStage.setTitle("The Game Thing");
+		
+		Pane gameRoot = new Pane();
+		
+		InputStream is = Files.newInputStream(Paths.get("Data/images/menu_bg.jpg"));
+		Image menu_bg = new Image(is);
+		is.close();
+		ImageView gameBgView= new ImageView(menu_bg);
+		
+		
+		gameRoot.getChildren().addAll(gameBgView);
+		
+		Scene scene = new Scene(gameRoot);
+		gameStage.setWidth(GameMain.gameX);
+		gameStage.setHeight(GameMain.gameY);
+		gameStage.setResizable(false);
+		gameStage.setScene(scene);
+		
+		//gameStage.show();
+
+		
+		
+		gameStage.setOnCloseRequest(event -> {
+			Alert alert = new Alert(AlertType.CONFIRMATION, "Back to main menu?", ButtonType.YES, ButtonType.NO);
+			alert.setHeaderText("The Game Thing");
+			alert.setResizable(false);
+			alert.setTitle("");
+			alert.showAndWait();
+
+			if (alert.getResult() == ButtonType.YES) {
+				gameStage.hide();
+				primaryStage.show();
+			} else {
+				event.consume();
+			}
+		});
+		
+		gameStage.show();
+	}
+	
 }

@@ -16,12 +16,20 @@ import java.util.Scanner;
 
 
 
+
+
+
+
+
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
@@ -36,6 +44,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;import javafx.animation.TranslateTransition;
 
@@ -134,6 +143,7 @@ public class GameMain extends Application {
 		
 
 		
+		
 		gameMenu = new GameMenu(primaryStage);
 
 		
@@ -189,6 +199,10 @@ public class GameMain extends Application {
 			MenuButton btnMainNew = new MenuButton("New Player");
 			btnMainNew.setOnMouseClicked(event -> {
 				
+				
+				
+				//Starts GameWindow :)
+				StartGameWindow(primaryStage);
 			});
 
 			MenuButton btnMainLoad = new MenuButton("Load Player");
@@ -208,6 +222,7 @@ public class GameMain extends Application {
 						public void handle(MouseEvent event) {
 							Player.setName(playerName);
 							try {
+								
 								Player.loadPlayerData();
 								Player.displayInfotoVBox(playerInfo);
 								
@@ -267,11 +282,27 @@ public class GameMain extends Application {
 			MenuButton btnMainExit = new MenuButton("Exit");
 			btnMainExit.setOnMouseClicked(event -> {
 				FadeTransition ft = new FadeTransition(Duration.seconds(0.5), this);
+				FadeTransition ft1 = new FadeTransition(Duration.seconds(0.5), this);
 				ft.setFromValue(1);
 				ft.setToValue(0);
 				ft.play();
 
-				ft.setOnFinished(event1 -> System.exit(0));
+				ft.setOnFinished(event1 -> {
+					Alert alert = new Alert(AlertType.CONFIRMATION, "Exit game?", ButtonType.YES, ButtonType.NO);
+					alert.setHeaderText("The Game Thing");
+					alert.setResizable(false);
+					alert.setTitle("");
+					alert.showAndWait();
+
+					if (alert.getResult() == ButtonType.YES) {
+						System.exit(0);
+					} else {
+						ft1.setFromValue(0);
+						ft1.setToValue(1);
+						ft1.play();
+					}
+				});
+				//ft.setOnFinished(event1 -> System.exit(0));
 			});
 
 			//Options Menu Buttons
@@ -414,6 +445,15 @@ public class GameMain extends Application {
 			tt1.play();
 			tt.setOnFinished(event1 -> getChildren().remove(from));
 		}
+		
+		public void StartGameWindow(Stage primaryStage) {
+			try {
+				GameFlow.GameWindow(primaryStage);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	
@@ -461,12 +501,12 @@ public class GameMain extends Application {
 		}
 	}
 
-	private static class characterButton extends StackPane {
+	private static class CharacterButton extends StackPane {
 		
 		private Text charType;
 		private ImageView charBtnImg;
 		
-		public characterButton (String type) throws IOException {
+		public CharacterButton (String type) throws IOException {
 			charType = new Text(type);
 			charType.setFont(Font.font("Showcard Gothic", 15));
 			charType.setFill(Color.WHITE);
@@ -485,10 +525,6 @@ public class GameMain extends Application {
 			
 			getChildren().setAll(cBtn);
 		}
-		
-		
-		
-		
 		
 	}
 
