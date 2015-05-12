@@ -16,13 +16,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
+import javafx.scene.effect.Light.Distant;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -125,14 +129,8 @@ public class GameMain extends Application {
 		is.close();
 
 		menuBgView = new ImageView(menu_bg);
-		
-
-		
-		
 		gameMenu = new GameMenu(primaryStage);
 
-		
-			
 			menuBgView.setFitWidth(gameX);
 			menuBgView.setFitHeight(gameY);
 			
@@ -143,14 +141,20 @@ public class GameMain extends Application {
 			primaryStage.setHeight(gameY);
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
+			primaryStage.setOnCloseRequest(event -> {
+				Alert alert = new Alert(AlertType.CONFIRMATION, "Exit game?", ButtonType.YES, ButtonType.NO);
+				alert.setHeaderText("The Game Thing");
+				alert.setResizable(false);
+				alert.setTitle("");
+				alert.showAndWait();
+
+				if (alert.getResult() == ButtonType.YES) {
+					System.exit(0);
+				} else {
+					event.consume();
+				}
+			});
 			primaryStage.show();
-		
-		
-		
-	}
-
-
-	public void changeResolution() {
 
 	}
 
@@ -161,8 +165,12 @@ public class GameMain extends Application {
 			VBox optionsMenu = new VBox(15);
 			VBox videoMenu = new VBox(15);
 			VBox playerInfo = new VBox(5);
+			VBox newPlayerMenu = new VBox(20);
 			
-
+			HBox characters = new HBox(20);
+			HBox nameField = new HBox(5);
+			characters.setAlignment(Pos.CENTER);
+			
 			mainMenu.setTranslateX(gameX/5);
 			mainMenu.setTranslateY(gameY/4);
 
@@ -177,24 +185,87 @@ public class GameMain extends Application {
 			
 			playerInfo.setTranslateX(gameX);
 			playerInfo.setTranslateY(gameY/6);
+			
+			newPlayerMenu.setTranslateX(gameX);
+			newPlayerMenu.setTranslateY(gameY/4);
 
-
-
+			
 			//Main Menu buttons
 			MenuButton btnMainNew = new MenuButton("New Player");
+			MenuButton btnMainLoad = new MenuButton("Load Player");
+			MenuButton btnMainOptions = new MenuButton("Options");
+			MenuButton btnMainExit = new MenuButton("Exit");
+			
+			//New Player Menu buttons
+			Text insertName = new Text("Player name:");
+			TextField newName = new TextField();
+			CharacterButton mageBtn = new CharacterButton("Mage");
+			CharacterButton rogueBtn = new CharacterButton("Rogue");
+			CharacterButton warriorBtn = new CharacterButton("Warrior");
+			MenuButton nPBack = new MenuButton("Back");
+			
+			//Options Menu Buttons
+			
 			btnMainNew.setOnMouseClicked(event -> {
-				
-				
-				
-				//Starts GameWindow :)
-				StartGameWindow(primaryStage);
+				transistWindow(mainMenu, newPlayerMenu, null);
 			});
 
-			MenuButton btnMainLoad = new MenuButton("Load Player");
+			insertName.setFont(Font.font("Showcard Gothic", 20));
+			insertName.setFill(Color.WHITE);
+			
+			nameField.getChildren().addAll(insertName, newName);
+			characters.getChildren().addAll(warriorBtn, rogueBtn, mageBtn);
+			
+			Alert nameMissing = new Alert(AlertType.ERROR);
+			
+			mageBtn.setOnMouseClicked(event -> {
+				try {
+					createPlayer(0, newName);
+				} catch (NameMissingException e) {
+					nameMissing.setContentText(e.getMessage().toString());
+					nameMissing.showAndWait();
+					event.consume();
+					return;
+				}
+				StartGameWindow(primaryStage);
+			});
+			
+			rogueBtn.setOnMouseClicked(event -> {
+				
+				try {
+					createPlayer(0, newName);
+				} catch (NameMissingException e) {
+					nameMissing.setContentText(e.getMessage().toString());
+					nameMissing.showAndWait();
+					event.consume();
+					return;
+				}
+				StartGameWindow(primaryStage);
+			});
+			
+			warriorBtn.setOnMouseClicked(event -> {
+				try {
+					createPlayer(0, newName);
+				} catch (NameMissingException e) {
+					nameMissing.setContentText(e.getMessage().toString());
+					nameMissing.showAndWait();
+					event.consume();
+					return;
+				}
+				StartGameWindow(primaryStage);
+			});
+			
+			nPBack.setOnMouseClicked(event -> {
+				transistWindow(newPlayerMenu, mainMenu, null);
+			});
+			
+			
+			
 			btnMainLoad.setOnMouseClicked(event -> {
+				
 				VBox playerMenu = new VBox(15);
 				playerMenu.setTranslateX(gameX);
-				playerMenu.setTranslateY(gameY/4);
+				playerMenu.setTranslateY(gameY/5);
 				ArrayList<MenuButton> playersButtons = new ArrayList<MenuButton>();
 				for (File playerFile : DataManager.getAvailablePlayerFiles()){
 					String filename = playerFile.getName();
@@ -254,7 +325,7 @@ public class GameMain extends Application {
 
 			});
 
-			MenuButton btnMainOptions = new MenuButton("Options");
+			
 			btnMainOptions.setOnMouseClicked(event -> {
 				transistWindow(mainMenu, optionsMenu, null);
 				/*
@@ -271,7 +342,7 @@ public class GameMain extends Application {
 				tt.setOnFinished(event1 -> getChildren().remove(mainMenu));*/
 			});
 
-			MenuButton btnMainExit = new MenuButton("Exit");
+			
 			btnMainExit.setOnMouseClicked(event -> {
 				FadeTransition ft = new FadeTransition(Duration.seconds(0.5), this);
 				FadeTransition ft1 = new FadeTransition(Duration.seconds(0.5), this);
@@ -305,9 +376,6 @@ public class GameMain extends Application {
 			MenuButton low = new MenuButton("640x480");
 			MenuButton medium = new MenuButton("800x600");
 			MenuButton high = new MenuButton("1024x756");
-
-			videoMenu.getChildren().addAll(txVideoMenu,low, medium, high);
-
 
 			MenuButton btnOptVideo = new MenuButton("Video");
 			btnOptVideo.setOnMouseClicked(event -> {
@@ -380,11 +448,12 @@ public class GameMain extends Application {
 
 			mainMenu.getChildren().addAll(btnMainNew, btnMainLoad, btnMainOptions, btnMainExit);
 			optionsMenu.getChildren().addAll(btnOptVideo, btnOptBack);
+			videoMenu.getChildren().addAll(txVideoMenu,low, medium, high);
+			newPlayerMenu.getChildren().addAll(nameField, characters, nPBack);
 
 			Rectangle bg = new Rectangle(1024, 756);
 			bg.setFill(Color.GRAY);
 			bg.setOpacity(0.4);
-			
 			
 			theGameThing.setFont(Font.font("Showcard Gothic", 40));
 			theGameThing.setFill(Color.WHITE);
@@ -403,7 +472,45 @@ public class GameMain extends Application {
 			});
 
 			getChildren().addAll(bg, mainMenu, theGameThing);
-
+		}
+		
+		public void createPlayer(int type, TextField newName) throws NameMissingException {
+			
+			if (DataManager.getAvailablePlayerFiles().length > 6) {
+				throw new NameMissingException("Too many Players, delete some of them.");
+			}
+			
+			if (newName.getLength() == 0) {
+				
+					throw new NameMissingException("Player name missing.");
+				
+			} else if (newName.getLength() < 3) {
+				
+					throw new NameMissingException("Player name too short, has to be at least 3 letters.");
+				
+			} else {
+				
+					try {
+						DataManager.checkIfPlayerExists(newName.getText());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						Alert nameExists = new Alert(AlertType.WARNING, "Do you want to overwrite?", ButtonType.YES, ButtonType.NO);
+						nameExists.setHeaderText(e.getMessage());
+						nameExists.showAndWait();
+						if (nameExists.getResult() == ButtonType.NO) 
+							return;
+					}
+					
+					Player.setName(newName.getText());
+					Player.chooseClass(type);
+					//Player.displayInfo();
+					try {
+						Player.save();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+			}
 		}
 		
 		public void refreshStage(Stage primaryStage) {
@@ -442,13 +549,10 @@ public class GameMain extends Application {
 			try {
 				GameFlow.GameWindow(primaryStage);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-
-	
 	
 	public static class MenuButton extends StackPane {
 
@@ -498,22 +602,44 @@ public class GameMain extends Application {
 		private Text charType;
 		private ImageView charBtnImg;
 		
-		public CharacterButton (String type) throws IOException {
+		public CharacterButton (String type) {
 			charType = new Text(type);
 			charType.setFont(Font.font("Showcard Gothic", 15));
 			charType.setFill(Color.WHITE);
-			charType.setTranslateX(5);
 			
-			InputStream is = Files.newInputStream(Paths.get("Data/images/" + type + ".png"));
-			Image charImg = new Image(is);
-			is.close();
 			
-			charBtnImg = new ImageView(charImg);
-			charBtnImg.resize(30, 30);
+			try {
+				InputStream is = Files.newInputStream(Paths.get("Data/images/" + type + "_portrait.png"));
+				Image charImg = new Image(is);
+				is.close();
+				charBtnImg = new ImageView(charImg);
+			} catch (Exception e) {
+				System.out.println("Character portrait picture missing - " + type);
+			}
+			
+			DropShadow drop = new DropShadow(50, Color.LIGHTBLUE);
+			drop.setInput(new Glow());
+			
+			//charBtnImg.resize(30, 30);
 			
 			VBox cBtn = new VBox(5);
-			
+			cBtn.setAlignment(Pos.CENTER);
 			cBtn.getChildren().addAll(charBtnImg, charType);
+			
+			Distant light = new Distant();
+	        light.setAzimuth(-15.0f);
+	 
+	        Lighting l = new Lighting();
+	        l.setLight(light);
+	        l.setSurfaceScale(5.0f);
+			
+	        setEffect(l);
+			setOnMouseEntered(event -> {
+				setEffect(drop);
+			});
+			setOnMouseExited(event -> {
+				setEffect(l);
+			});
 			
 			getChildren().setAll(cBtn);
 		}
