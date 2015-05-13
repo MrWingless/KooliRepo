@@ -181,6 +181,11 @@ public class GameFlow extends Parent {
 		}
 	}
 	
+	/**
+	 * This is where all the game will be drawn
+	 * @param primaryStage - Game menu, will be hidden, to be brought up when required.
+	 * @throws IOException - If any of the images is missing
+	 */
 	public static void GameWindow(Stage primaryStage) throws IOException {
 		gameStage = new Stage();
 		primaryStage.hide();
@@ -201,6 +206,10 @@ public class GameFlow extends Parent {
 		playerPortrait.setY(0);
 		is = Files.newInputStream(Paths.get("Data/images/player_idle.png"));
 		Image player_idle = new Image(is);
+		ImageView playerIdle = new ImageView();
+		playerIdle.setImage(player_idle);
+		playerIdle.setX(20);
+		playerIdle.setY(GameMain.gameY - 350);
 		Image[] player_attack = new Image[] {
 				new Image(Files.newInputStream(Paths.get("Data/images/player_atk_1.png"))),
 				new Image(Files.newInputStream(Paths.get("Data/images/player_atk_2.png"))),
@@ -210,30 +219,59 @@ public class GameFlow extends Parent {
 		// Getting enemy related images ?? 
 		is = Files.newInputStream(Paths.get("Data/images/enemy_portrait.png"));
 		Image enemy_portrait = new Image(is);
+		ImageView enemyPortrait = new ImageView();
+		enemyPortrait.setImage(enemy_portrait);
+		enemyPortrait.setX(GameMain.gameX - 158);
+		enemyPortrait.setY(0);
 		is = Files.newInputStream(Paths.get("Data/images/enemy_idle.png"));
 		Image enemy_idle = new Image(is);
+		ImageView enemyIdle = new ImageView();
+		enemyIdle.setImage(enemy_idle);
+		enemyIdle.setX(GameMain.gameX - 20 - 133);
+		enemyIdle.setY(GameMain.gameY - 350);
 
 		// Getting health bar images
+		int playerHealthBarX = 308-250;
+		int enemyHealthBarX = GameMain.gameX-150 - 158;
 		is = Files.newInputStream(Paths.get("Data/images/health_bar.png"));
 		Image health_bar = new Image(is);
 		ImageView playerHealthBar = new ImageView();
 		playerHealthBar.setImage(health_bar);
-		playerHealthBar.setX(150);
+		playerHealthBar.setX(playerHealthBarX);
+		ImageView enemyHealthBar = new ImageView();
+		enemyHealthBar.setImage(health_bar);
+		enemyHealthBar.setX(enemyHealthBarX);
 		is = Files.newInputStream(Paths.get("Data/images/health_damaged.png"));
 		Image health_damaged = new Image(is);
 		ImageView playerHealthDamaged = new ImageView();
 		playerHealthDamaged.setImage(health_damaged);
-		playerHealthDamaged.setX(150);
+		playerHealthDamaged.setX(playerHealthBarX);
+		ImageView enemyHealthDamaged = new ImageView();
+		enemyHealthDamaged.setImage(health_damaged);
+		enemyHealthDamaged.setX(enemyHealthBarX);
 		is = Files.newInputStream(Paths.get("Data/images/health_surround.png"));
 		Image health_surround = new Image(is);
 		ImageView playerHealthSurround = new ImageView();
 		playerHealthSurround.setImage(health_surround);
-		playerHealthSurround.setX(147);
+		playerHealthSurround.setX(playerHealthBarX-3);
+		ImageView enemyHealthSurround = new ImageView();
+		enemyHealthSurround.setImage(health_surround);
+		enemyHealthSurround.setX(enemyHealthBarX-3);
 		
 		is.close();
 		ImageView gameBgView= new ImageView(menu_bg);
 		
-		gameRoot.getChildren().addAll(playerHealthSurround, playerHealthDamaged, playerHealthBar, playerPortrait);
+		gameRoot.getChildren().addAll(//gameBgView, //Background doesn't really work well with everything else we have hand-drawn
+				playerHealthSurround, 
+				enemyHealthSurround, 
+				playerHealthDamaged, 
+				enemyHealthDamaged, 
+				playerHealthBar, 
+				enemyHealthBar, 
+				playerPortrait, 
+				enemyPortrait,
+				playerIdle,
+				enemyIdle);
 		
 		Scene scene = new Scene(gameRoot);
 		gameStage.setWidth(GameMain.gameX);

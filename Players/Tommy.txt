@@ -1,0 +1,34 @@
+# Name
+Tommy
+# Level
+0
+# Role/Class
+0
+# Exp
+0
+# Exp Required for Next Level Up
+10
+# Current Health
+20
+# Max Health
+20
+# Intelligence
+10
+# Dexterity
+5
+# Strength
+5
+# Speed
+5
+# Protection
+1.0
+# Accuracy
+5.0
+# Dodge
+3.0
+# Weapon's Code
+0
+# Armor's Code
+0
+# Gold
+0

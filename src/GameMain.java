@@ -33,6 +33,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -156,7 +157,7 @@ public class GameMain extends Application {
 			});
 			primaryStage.show();
 
-	}
+	}// start end
 
 	/**
 	 * Class to create Game Menu
@@ -298,6 +299,10 @@ public class GameMain extends Application {
 										
 										Player.loadPlayerData();
 										Player.displayInfotoVBox(playerInfo);
+										Text theText = new Text("Double Click the Player name to Load");
+										theText.setFont(Font.font("Showcard Gothic", 12));
+										theText.setFill(Color.AQUAMARINE.darker());
+										playerInfo.getChildren().add(theText);
 										
 										if (!secondaryMenuVisible) {
 											getChildren().addAll(playerInfo);
@@ -437,14 +442,35 @@ public class GameMain extends Application {
 			theGameThing.setOnMousePressed(event -> {
 				theGameThing.setEffect(drop);
 				theGameThing.setFill(Color.BLACK);
+				
+				Text theText = new Text("\n\nInformation About the game:");
+				theText.setFont(Font.font("Showcard Gothic", FontWeight.BOLD, 14));
+				theText.setFill(Color.WHITE.darker());
+				Text theText2 = new Text("This game is a turn based adventure simulator."
+						+ "\nDuring the game you have a set of choices"
+						+ "\nthat you have to choose from, to create"
+						+ "\nyour own adventure.");
+				theText2.setFont(Font.font("Showcard Gothic", 12));
+				theText2.setFill(Color.WHITE.darker());
+				playerInfo.getChildren().addAll(theText, theText2);
+				getChildren().add(playerInfo);
+				
+				TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), playerInfo);
+				//TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), playerInfo);
+				tt1.setToX(gameX*3/5);
+				tt1.play();
 			});
 			theGameThing.setOnMouseReleased(event -> {
 				theGameThing.setEffect(null);
 				theGameThing.setFill(Color.WHITE);
+				getChildren().remove(playerInfo);
+				playerInfo.getChildren().clear();
+				playerInfo.setTranslateX(gameX);
+				playerInfo.setTranslateY(gameY/6);
 			});
 
 			getChildren().addAll(bg, mainMenu, theGameThing);
-		}
+		} // GameMenu end
 
 		/**
 		 * Method to create new Player
@@ -489,7 +515,7 @@ public class GameMain extends Application {
 						e1.printStackTrace();
 					}
 			}
-		}
+		} // CreatePlayer end
 		
 		/**
 		 * Method to refresh game after resolution change
@@ -596,7 +622,7 @@ public class GameMain extends Application {
 			setOnMousePressed(event -> setEffect(drop));
 			setOnMouseReleased(event -> setEffect(null));
 		}
-	}
+	} // MenuButton end
 	
 	/**
 	 * Class to make Character Buttons for New Player Menu
@@ -650,8 +676,7 @@ public class GameMain extends Application {
 			
 			getChildren().setAll(cBtn);
 		}
-		
-	}
+	} // CharacterButton end
 
 }
 
