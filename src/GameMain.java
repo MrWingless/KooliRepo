@@ -442,7 +442,8 @@ public class GameMain extends Application {
 			theGameThing.setOnMousePressed(event -> {
 				theGameThing.setEffect(drop);
 				theGameThing.setFill(Color.BLACK);
-				
+				getChildren().remove(playerInfo);
+				playerInfo.getChildren().clear();
 				Text theText = new Text("\n\nInformation About the game:");
 				theText.setFont(Font.font("Showcard Gothic", FontWeight.BOLD, 14));
 				theText.setFill(Color.WHITE.darker());
@@ -457,6 +458,7 @@ public class GameMain extends Application {
 				
 				TranslateTransition tt1 = new TranslateTransition(Duration.seconds(0.5), playerInfo);
 				//TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.25), playerInfo);
+				tt1.setFromX(gameX);
 				tt1.setToX(gameX*3/5);
 				tt1.play();
 			});
