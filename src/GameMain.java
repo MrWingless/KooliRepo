@@ -249,7 +249,7 @@ public class GameMain extends Application {
 			rogueBtn.setOnMouseClicked(event -> {
 				
 				try {
-					createPlayer(0, newName);
+					createPlayer(1, newName);
 				} catch (NameMissingException e) {
 					nameMissing.setContentText(e.getMessage().toString());
 					nameMissing.showAndWait();
@@ -261,7 +261,7 @@ public class GameMain extends Application {
 			
 			warriorBtn.setOnMouseClicked(event -> {
 				try {
-					createPlayer(0, newName);
+					createPlayer(2, newName);
 				} catch (NameMissingException e) {
 					nameMissing.setContentText(e.getMessage().toString());
 					nameMissing.showAndWait();
