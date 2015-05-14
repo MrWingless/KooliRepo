@@ -1,3 +1,5 @@
+import javafx.scene.text.Text;
+
 
 public class Combat {
 	// TODO check accuracy, dodge and protection formulas.
@@ -13,12 +15,17 @@ public class Combat {
 		int rand = (int)(Math.round(Math.random()*amtOfEnemies));
 		e = new Enemy(GameMain.enemies[rand]);
 		
-		System.out.println("You are encountered by " + e.getName());
-		e.printStats();
-		System.out.println("Hit chance: " + chanceToHit(false) + "%");
+		GameFlow.whatsUp = new Text("You are encountered by " + e.getName());
+		GameFlow.gameInnerBPane.setCenter(GameFlow.whatsUp);
+		GameFlow.gameOuterBPane.setCenter(GameFlow.gameInnerBPane);
+		GameFlow.scene.setRoot(GameFlow.gameOuterBPane);
+		//System.out.println("You are encountered by " + e.getName());
+		//e.printStats();
+		//System.out.println("Hit chance: " + chanceToHit(false) + "%");
 		
 		
-		String[] choices = {"Attack. ("+ chanceToHit(true) + "% chance to hit)", "Run. (There is a " + chanceToFlee() + "% chance, that you get away)"};
+		
+		String[] choices = {"Attack.", "Run."};
 		
 		while (!Player.isDead() && !e.isDead()) {
 			int choice = GameFlow.makeChoice("What do you do?", choices);
